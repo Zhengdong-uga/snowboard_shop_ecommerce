@@ -1,0 +1,40 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"heading": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading1",
+						"content": {
+							"text": "Younger"
+						}
+					}
+				]
+			},
+			"body": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Occaecat deserunt esse veniam."
+						}
+					}
+				]
+			},
+			"button": {
+				"__TYPE__": "LinkContent",
+				"key": "ce0e5ca2-4ad3-467e-a915-cff7e78f1a96",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://slicemachine.dev",
+					"text": "folks"
+				}
+			}
+		},
+		"items": []
+	}
+]
