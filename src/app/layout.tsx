@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bowlby_One_SC, DM_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const bowlby = Bowlby_One_SC({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-bowlby-sc',
+  weight: "400"
+})
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const deMono = DM_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-dm-mono',
+  weight: "500"
+})
+ 
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${bowlby.variable} ${deMono.variable} antialiased font-mono font-medium text-zinc-800`}
       >
         {children}
       </body>
