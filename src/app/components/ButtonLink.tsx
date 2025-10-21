@@ -56,43 +56,16 @@ export function ButtonLink({
 
 function SnowboardIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 40" fill="none">
-      {/* board body */}
-      <rect
-        x="4"
-        y="10"
-        width="270"
-        height="40"
-        rx="10"
-        fill="black"
-        fillOpacity="0.85"
-      />
-
-      {/* left binding */}
-      <circle cx="60" cy="20" r="5" fill="white" />
-      <rect
-        x="55"
-        y="25"
-        width="10"
-        height="10"
-        rx="2"
-        fill="white"
-        stroke="black"
-        strokeWidth="1"
-      />
-
-      {/* right binding */}
-      <circle cx="120" cy="20" r="5" fill="white" />
-      <rect
-        x="115"
-        y="25"
-        width="10"
-        height="10"
-        rx="2"
-        fill="white"
-        stroke="black"
-        strokeWidth="1"
-      />
+    <svg
+      fill="#000000"
+      width="800px"
+      height="800px"
+      viewBox="-2 -2 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMinYMin"
+      className="jam jam-snowboard-f"
+    >
+      <path d="M18.504 1.47a3.608 3.608 0 0 1-.263 5.34c-3.097 2.541-5.131 4.296-6.101 5.266-.97.97-2.725 3.004-5.266 6.101a3.608 3.608 0 0 1-5.34.263 3.48 3.48 0 0 1 .291-5.183A72.408 72.408 0 0 0 13.321 1.761a3.48 3.48 0 0 1 5.183-.291zm-7.071 7.07a1 1 0 1 0 1.414-1.413 1 1 0 0 0-1.414 1.414zM7.19 12.785a1 1 0 1 0 1.414-1.415 1 1 0 0 0-1.414 1.415z" />
     </svg>
   );
 }
