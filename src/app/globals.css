@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-texture {
+    background-image: url("../../public/bg-texture.webp");
+    background-size: 720px 460px;
+    background-repeat: repeat;
+    background-position: center;
+    /* need to specify those thing to make it combine with the color */
+}
