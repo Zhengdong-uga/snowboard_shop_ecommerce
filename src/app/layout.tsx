@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
 import { Bowlby_One_SC, DM_Mono } from "next/font/google";
+
+import { Header } from "./components/Header";
 import "./globals.css";
 
 const bowlby = Bowlby_One_SC({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-bowlby-sc',
-  weight: "400"
-})
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-bowlby-sc",
+  weight: "400",
+});
 
 const deMono = DM_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-dm-mono',
-  weight: "500"
-})
- 
-
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-dm-mono",
+  weight: "500",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -33,7 +33,10 @@ export default function RootLayout({
       <body
         className={`${bowlby.variable} ${deMono.variable} antialiased font-mono font-medium text-zinc-800`}
       >
-        {children}
+        <main>
+          <Header />
+          {children}
+        </main>
       </body>
     </html>
   );
