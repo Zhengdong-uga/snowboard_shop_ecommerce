@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bowlby_One_SC, DM_Mono } from "next/font/google";
 
 import { Header } from "./components/Header";
+import { SVGFilters } from "./components/SVGFilters";
 import "./globals.css";
 
 const bowlby = Bowlby_One_SC({
@@ -37,6 +38,7 @@ export default function RootLayout({
           <Header />
           {children}
         </main>
+        <SVGFilters />
       </body>
     </html>
   );
