@@ -41,6 +41,28 @@
 										"id": "mock_document_id"
 									}
 								}
+							],
+							[
+								"bindings",
+								{
+									"key": "426dbc49-b4f7-43aa-a413-0689bac18f9c",
+									"__TYPE__": "LinkContent",
+									"value": {
+										"__TYPE__": "DocumentLink",
+										"id": "mock_document_id"
+									}
+								}
+							],
+							[
+								"boots",
+								{
+									"__TYPE__": "LinkContent",
+									"key": "551580c2-e0ca-4954-bf49-4fdab89d402f",
+									"value": {
+										"__TYPE__": "DocumentLink",
+										"id": "mock_document_id"
+									}
+								}
 							]
 						]
 					}

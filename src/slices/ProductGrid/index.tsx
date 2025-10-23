@@ -4,6 +4,7 @@ import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import { Bounded } from "@/app/components/Bounded";
 import { Heading } from "@/app/components/Heading";
 import { SnowboardProduct } from "./SnowboardProduct";
+import { BindingsProduct } from "./BindingsProduct";
 
 /**
  * Props for `ProductGrid`.
@@ -34,7 +35,15 @@ const ProductGrid: FC<ProductGridProps> = ({ slice }) => {
               <SnowboardProduct key={snowboard.id} id={snowboard.id} />
             )
         )}
-        <Heading className="~text-lg/2xl mt-8 mb-8">Bindings</Heading>
+        {/* <Heading className="~text-lg/2xl mt-8 mb-8">Bindings</Heading>
+        <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {slice.primary.product.map(
+            ({ bindings }) =>
+              isFilled.contentRelationship(bindings) && (
+                <BindingsProduct key={bindings.id} id={bindings.id} />
+              )
+          )}
+        </div> */}
       </div>
     </Bounded>
   );

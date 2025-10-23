@@ -207,7 +207,10 @@ interface BootsDocumentData {
 export type BootsDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<BootsDocumentData>, "boots", Lang>;
 
-type HomepageDocumentDataSlicesSlice = ProductGridSlice | HeroSlice;
+type HomepageDocumentDataSlicesSlice =
+  | VideoBlockSlice
+  | ProductGridSlice
+  | HeroSlice;
 
 /**
  * Content for Homepage documents
@@ -505,6 +508,30 @@ export interface ProductGridSliceDefaultPrimaryProductItem {
    * - **Documentation**: https://prismic.io/docs/fields/content-relationship
    */
   snowboard: prismic.ContentRelationshipField<"snowboard">;
+
+  /**
+   * Bindings field in *ProductGrid → Default → Primary → Product*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_grid.default.primary.product[].bindings
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  bindings: ContentRelationshipFieldWithData<
+    [{ id: "binding"; fields: ["name", "image", "price", "customizer_link"] }]
+  >;
+
+  /**
+   * Boots field in *ProductGrid → Default → Primary → Product*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_grid.default.primary.product[].boots
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  boots: ContentRelationshipFieldWithData<
+    [{ id: "boots"; fields: ["name", "image", "price", "customizer_link"] }]
+  >;
 }
 
 /**
@@ -574,6 +601,51 @@ export type ProductGridSlice = prismic.SharedSlice<
   ProductGridSliceVariation
 >;
 
+/**
+ * Primary content in *VideoBlock → Default → Primary*
+ */
+export interface VideoBlockSliceDefaultPrimary {
+  /**
+   * YouTube Video ID field in *VideoBlock → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video_block.default.primary.youtube_video_id
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  youtube_video_id: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for VideoBlock Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type VideoBlockSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<VideoBlockSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *VideoBlock*
+ */
+type VideoBlockSliceVariation = VideoBlockSliceDefault;
+
+/**
+ * VideoBlock Shared Slice
+ *
+ * - **API ID**: `video_block`
+ * - **Description**: VideoBlock
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type VideoBlockSlice = prismic.SharedSlice<
+  "video_block",
+  VideoBlockSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -617,6 +689,10 @@ declare module "@prismicio/client" {
       ProductGridSliceDefaultPrimary,
       ProductGridSliceVariation,
       ProductGridSliceDefault,
+      VideoBlockSlice,
+      VideoBlockSliceDefaultPrimary,
+      VideoBlockSliceVariation,
+      VideoBlockSliceDefault,
     };
   }
 }

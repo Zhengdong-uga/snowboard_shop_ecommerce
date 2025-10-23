@@ -46,6 +46,44 @@
                     "snowboard"
                   ]
                 }
+              },
+              "bindings": {
+                "type": "Link",
+                "config": {
+                  "label": "Bindings",
+                  "select": "document",
+                  "repeat": false,
+                  "customtypes": [
+                    {
+                      "id": "binding",
+                      "fields": [
+                        "name",
+                        "image",
+                        "price",
+                        "customizer_link"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "boots": {
+                "type": "Link",
+                "config": {
+                  "label": "Boots",
+                  "select": "document",
+                  "repeat": false,
+                  "customtypes": [
+                    {
+                      "id": "boots",
+                      "fields": [
+                        "name",
+                        "image",
+                        "price",
+                        "customizer_link"
+                      ]
+                    }
+                  ]
+                }
               }
             }
           }
