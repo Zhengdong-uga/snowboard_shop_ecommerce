@@ -45,7 +45,6 @@ export async function SnowboardProduct({ id }: Props) {
 
   return (
     <div>
-      <Heading className="~text-lg/2xl mb-8">Snowboards</Heading>
       <div className="group relative mx-auto w-full maxw72 px-8 pt-4">
         <VerticalLine className={clsx(VERTICAL_LINE_CLASSES, "left-4")} />
         <VerticalLine className={clsx(VERTICAL_LINE_CLASSES, "right-4")} />

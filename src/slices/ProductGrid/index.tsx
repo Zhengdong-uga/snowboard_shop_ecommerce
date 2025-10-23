@@ -26,6 +26,7 @@ const ProductGrid: FC<ProductGridProps> = ({ slice }) => {
       <div className="text-center ~mb-6/10">
         <PrismicRichText field={slice.primary.body} />
       </div>
+      <Heading className="~text-lg/2xl mb-8">Snowboards</Heading>
       <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {slice.primary.product.map(
           ({ snowboard }) =>
@@ -33,6 +34,7 @@ const ProductGrid: FC<ProductGridProps> = ({ slice }) => {
               <SnowboardProduct key={snowboard.id} id={snowboard.id} />
             )
         )}
+        <Heading className="~text-lg/2xl mt-8 mb-8">Bindings</Heading>
       </div>
     </Bounded>
   );
