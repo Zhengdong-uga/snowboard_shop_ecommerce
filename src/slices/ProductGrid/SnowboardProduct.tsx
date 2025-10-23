@@ -9,6 +9,18 @@ import React from "react";
 import { FaStar } from "react-icons/fa6";
 import { Scribble } from "./Scribble";
 
+async function getDominantColor(url: string) {
+  const paletteURL = new URL(url);
+  paletteURL.searchParams.set("palette", "json");
+
+  const res = await fetch(paletteURL);
+  const json = await res.json();
+
+  return (
+    json.dominant_colors.vibrant?.hex || json.dominant_colors.vibrant_light?.hex
+  );
+}
+
 type Props = {
   id: string;
 };
@@ -27,6 +39,10 @@ export async function SnowboardProduct({ id }: Props) {
     ? `$${(product.data.price / 100).toFixed(2)}`
     : "Price Not Available";
 
+  const dominantColor = isFilled.image(product.data.image)
+    ? await getDominantColor(product.data.image.url)
+    : undefined;
+
   return (
     <div>
       <Heading className="~text-lg/2xl mb-8">Snowboards</Heading>
@@ -43,7 +59,10 @@ export async function SnowboardProduct({ id }: Props) {
         </div>
 
         <div className="-mb-1 overflow-hidden py-4">
-          <Scribble className="absolute inset-0 h-full w-full" color={"#f00"} />
+          <Scribble
+            className="absolute inset-0 h-full w-full"
+            color={dominantColor}
+          />
           <PrismicNextImage
             alt=""
             field={product.data.image}
