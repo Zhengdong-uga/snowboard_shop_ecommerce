@@ -7,6 +7,7 @@ import { PrismicNextImage } from "@prismicio/next";
 import clsx from "clsx";
 import React from "react";
 import { FaStar } from "react-icons/fa6";
+import { Scribble } from "./Scribble";
 
 type Props = {
   id: string;
@@ -42,6 +43,7 @@ export async function SnowboardProduct({ id }: Props) {
         </div>
 
         <div className="-mb-1 overflow-hidden py-4">
+          <Scribble className="absolute inset-0 h-full w-full" color={"#f00"} />
           <PrismicNextImage
             alt=""
             field={product.data.image}
