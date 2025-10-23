@@ -291,6 +291,21 @@ export interface SettingsDocumentDataNavigationItem {
 }
 
 /**
+ * Item in *Settings → Footer Snowboards*
+ */
+export interface SettingsDocumentDataFooterSnowboardsItem {
+  /**
+   * Snowboard field in *Settings → Footer Snowboards*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.footer_snowboards[].snowboard
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  snowboard: prismic.ImageField<never>;
+}
+
+/**
  * Content for Settings documents
  */
 interface SettingsDocumentData {
@@ -337,6 +352,30 @@ interface SettingsDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   navigation: prismic.GroupField<Simplify<SettingsDocumentDataNavigationItem>>;
+
+  /**
+   * Footer Image field in *Settings*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.footer_image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  footer_image: prismic.ImageField<never>;
+
+  /**
+   * Footer Snowboards field in *Settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.footer_snowboards[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  footer_snowboards: prismic.GroupField<
+    Simplify<SettingsDocumentDataFooterSnowboardsItem>
+  >;
 }
 
 /**
@@ -677,6 +716,7 @@ declare module "@prismicio/client" {
       SettingsDocument,
       SettingsDocumentData,
       SettingsDocumentDataNavigationItem,
+      SettingsDocumentDataFooterSnowboardsItem,
       SnowboardDocument,
       SnowboardDocumentData,
       AllDocumentTypes,
