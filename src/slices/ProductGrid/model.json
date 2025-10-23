@@ -1,0 +1,57 @@
+{
+  "id": "product_grid",
+  "type": "SharedSlice",
+  "name": "ProductGrid",
+  "description": "ProductGrid",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "heading": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Heading",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "single": "heading2"
+          }
+        },
+        "body": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Body",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,strong,em"
+          }
+        },
+        "product": {
+          "type": "Group",
+          "config": {
+            "label": "Product",
+            "repeat": true,
+            "fields": {
+              "snowboard": {
+                "type": "Link",
+                "config": {
+                  "label": "Snowboard",
+                  "select": "document",
+                  "repeat": false,
+                  "customtypes": [
+                    "snowboard"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

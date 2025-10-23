@@ -21,8 +21,8 @@ export function Logo(props: SVGProps<SVGSVGElement>) {
         fill="#692E54"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M205.619 23.5842C205.111 23.5462 204.701 23.1263 204.703 22.6466C204.706 22.1666 205.12 21.8085 205.629 21.8464C206.138 21.8843 206.548 22.304 206.545 22.784C206.543 23.2636 206.128 23.6221 205.619 23.5842Z"
         fill="#692E54"
       />
