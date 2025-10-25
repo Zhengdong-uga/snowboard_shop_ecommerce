@@ -72,7 +72,7 @@
     grid-area: stack;
   }
 
-  .gear-scribble-path {
+  .skater-scribble-path {
     opacity: 0.8;
     stroke-dasharray: 2300;
     stroke-dashoffset: -2300;
@@ -80,7 +80,7 @@
     transform-origin: center center;
   }
 
-  .gear:hover .gear-scribble-path {
+  .skater:hover .skater-scribble-path {
     stroke-dashoffset: 0;
   }
 }
