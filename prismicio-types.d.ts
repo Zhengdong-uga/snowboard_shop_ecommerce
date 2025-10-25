@@ -223,6 +223,17 @@ interface GearsDocumentData {
   gear_name: prismic.KeyTextField;
 
   /**
+   * Gear Brand field in *Gears*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gears.gear_brand
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  gear_brand: prismic.KeyTextField;
+
+  /**
    * Customizer Link field in *Gears*
    *
    * - **Field Type**: Link

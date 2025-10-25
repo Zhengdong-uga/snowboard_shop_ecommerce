@@ -20,13 +20,14 @@ export function Gears({ gears, index }: Props) {
         />
         <PrismicNextImage
           field={gears.data.photo_foreground}
-          width={300}
+          width={500}
           alt=""
           className="transform transition-transform duration-1000 ease-in-out group-hover:scale-110"
         />
         <div className="relative h-48 w-full place-self-end bg-gradient-to-t from-black via-transparent to-transparent"></div>
         <h3 className="relative grid place-self-end justify-self-start p-2 font-sans text-brand-gray ~text-2xl/3xl">
-          {gears.data.gear_name}
+          <span className="mb-[-.3em]">{gears.data.gear_name}</span>
+          <span className="block">{gears.data.gear_brand}</span>
         </h3>
       </div>
     </div>

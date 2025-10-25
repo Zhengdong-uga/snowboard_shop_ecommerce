@@ -19,6 +19,13 @@
           "placeholder": ""
         }
       },
+      "gear_brand": {
+        "type": "Text",
+        "config": {
+          "label": "Gear Brand",
+          "placeholder": ""
+        }
+      },
       "customizer_link": {
         "type": "Link",
         "config": {
