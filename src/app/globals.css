@@ -62,4 +62,25 @@
       0 0
     );
   }
+  .stack-layout {
+    display: grid;
+    grid-template-areas: "stack";
+    place-items: center;
+  }
+
+  .stack-layout > * {
+    grid-area: stack;
+  }
+
+  .gear-scribble-path {
+    opacity: 0.8;
+    stroke-dasharray: 2300;
+    stroke-dashoffset: -2300;
+    transition: stroke-dashoffset 1s ease-in-out 0.2s;
+    transform-origin: center center;
+  }
+
+  .gear:hover .gear-scribble-path {
+    stroke-dashoffset: 0;
+  }
 }

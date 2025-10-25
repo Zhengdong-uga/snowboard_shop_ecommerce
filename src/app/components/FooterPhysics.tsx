@@ -20,11 +20,16 @@ export function FooterPhysics({
   boardTextureURLs = [],
   className,
 }: FooterPhysicsProps) {
+  // The div we will inject our canvas into
   const scene = useRef<HTMLDivElement>(null);
+  // Engine handles the physics simulation
   const engine = useRef(Engine.create());
+  // Intersection Observer state
   const [inView, setInView] = useState(false);
+  // We show fewer boards on mobile
   const [isMobile, setIsMobile] = useState(false);
 
+  // Handle mobile detection
   useEffect(() => {
     const handleResize = () => {
       if (typeof window !== "undefined") {

@@ -207,7 +207,75 @@ interface BootsDocumentData {
 export type BootsDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<BootsDocumentData>, "boots", Lang>;
 
+/**
+ * Content for Gears documents
+ */
+interface GearsDocumentData {
+  /**
+   * Gear Name field in *Gears*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gears.gear_name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  gear_name: prismic.KeyTextField;
+
+  /**
+   * Customizer Link field in *Gears*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gears.customizer_link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  customizer_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Photo Background field in *Gears*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gears.photo_background
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  photo_background: prismic.ImageField<never>;
+
+  /**
+   * Photo Foreground field in *Gears*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gears.photo_foreground
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  photo_foreground: prismic.ImageField<never>;
+}
+
+/**
+ * Gears document from Prismic
+ *
+ * - **API ID**: `gears`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type GearsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<GearsDocumentData>, "gears", Lang>;
+
 type HomepageDocumentDataSlicesSlice =
+  | GearsSlice
   | VideoBlockSlice
   | ProductGridSlice
   | HeroSlice;
@@ -468,9 +536,52 @@ export type SnowboardDocument<Lang extends string = string> =
 export type AllDocumentTypes =
   | BindingDocument
   | BootsDocument
+  | GearsDocument
   | HomepageDocument
   | SettingsDocument
   | SnowboardDocument;
+
+/**
+ * Primary content in *Gears → Default → Primary*
+ */
+export interface GearsSliceDefaultPrimary {
+  /**
+   * Heading field in *Gears → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gears.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+}
+
+/**
+ * Default variation for Gears Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type GearsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<GearsSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Gears*
+ */
+type GearsSliceVariation = GearsSliceDefault;
+
+/**
+ * Gears Shared Slice
+ *
+ * - **API ID**: `gears`
+ * - **Description**: Gears
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type GearsSlice = prismic.SharedSlice<"gears", GearsSliceVariation>;
 
 /**
  * Primary content in *Hero → Default → Primary*
@@ -710,6 +821,8 @@ declare module "@prismicio/client" {
       BindingDocumentData,
       BootsDocument,
       BootsDocumentData,
+      GearsDocument,
+      GearsDocumentData,
       HomepageDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
@@ -720,6 +833,10 @@ declare module "@prismicio/client" {
       SnowboardDocument,
       SnowboardDocumentData,
       AllDocumentTypes,
+      GearsSlice,
+      GearsSliceDefaultPrimary,
+      GearsSliceVariation,
+      GearsSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
