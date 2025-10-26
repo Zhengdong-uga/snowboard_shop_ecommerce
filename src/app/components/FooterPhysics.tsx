@@ -56,7 +56,7 @@ export function FooterPhysics({
       ([entry]) => {
         setInView(entry.isIntersecting);
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 } //so user scroll to the middle then boards drop there
     );
 
     if (currentScene) observer.observe(currentScene);
@@ -91,6 +91,7 @@ export function FooterPhysics({
       },
     });
 
+    // There are some boundaries to the scene/
     let boundaries = createBoundaries(cw, ch);
     World.add(engine.current.world, boundaries);
 
@@ -137,6 +138,7 @@ export function FooterPhysics({
       ];
     }
 
+    // runner manages the animation loop and updates engine 60 times per second
     const runner = Runner.create();
     Runner.run(runner, engine.current);
     Render.run(render);
