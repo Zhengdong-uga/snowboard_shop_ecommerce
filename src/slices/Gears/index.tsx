@@ -12,6 +12,7 @@ import React from "react";
 
 // 👇 Import the card component with an alias
 import { Gears as GearCard } from "./GearsCard"; // or wherever it lives
+import { SlideIn } from "@/app/components/SlideIn";
 
 export type GearsProps = SliceComponentProps<Content.GearsSlice>;
 
@@ -25,15 +26,19 @@ const Gears = async ({ slice }: GearsProps): Promise<JSX.Element> => {
       data-slice-variation={slice.variation}
       className="bg-texture bg-brand-navy"
     >
-      <Heading as="h2" size="lg" className="mb-8 text-center text-white">
-        <PrismicText field={slice.primary.heading} />
-      </Heading>
+      <SlideIn>
+        <Heading as="h2" size="lg" className="mb-8 text-center text-white">
+          <PrismicText field={slice.primary.heading} />
+        </Heading>
+      </SlideIn>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
         {gearDocs.map((doc, index) => (
-          <React.Fragment key={doc.id ?? index}>
-            {doc.data.gear_name && <GearCard index={index} gears={doc} />}
-          </React.Fragment>
+          <SlideIn>
+            <React.Fragment key={doc.id ?? index}>
+              {doc.data.gear_name && <GearCard index={index} gears={doc} />}
+            </React.Fragment>
+          </SlideIn>
         ))}
       </div>
     </Bounded>
