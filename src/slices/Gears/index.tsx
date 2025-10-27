@@ -34,11 +34,9 @@ const Gears = async ({ slice }: GearsProps): Promise<JSX.Element> => {
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
         {gearDocs.map((doc, index) => (
-          <SlideIn>
-            <React.Fragment key={doc.id ?? index}>
-              {doc.data.gear_name && <GearCard index={index} gears={doc} />}
-            </React.Fragment>
-          </SlideIn>
+          <React.Fragment key={doc.id ?? index}>
+            {doc.data.gear_name && <GearCard index={index} gears={doc} />}
+          </React.Fragment>
         ))}
       </div>
     </Bounded>
