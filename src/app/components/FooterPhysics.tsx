@@ -167,14 +167,15 @@ export function FooterPhysics({
     const ch = scene.current.clientHeight;
 
     const boards = limitedBoardTextures.map((texture) => {
+      //ramdomize board position and rotation
       const x = Math.random() * cw;
       const y = Math.random() * (ch / 2 - 100) + 50;
       const rotation = ((Math.random() * 100 - 50) * Math.PI) / 180;
 
       return Bodies.rectangle(x, y, 80, 285, {
-        chamfer: { radius: 40 },
+        chamfer: { radius: 40 }, // rounded corners for accurate collision
         angle: rotation,
-        restitution: 0.8,
+        restitution: 0.8, //
         friction: 0.005,
         render: {
           sprite: {
