@@ -12,6 +12,7 @@ import { Heading } from "@/app/components/Heading";
 import { ButtonLink } from "@/app/components/ButtonLink";
 import { TallLogo } from "./TallLogo";
 import { WideLogo } from "./WideLogo";
+import { InteractiveSnowboard } from "./InteractiveSnowboard";
 
 /**
  * Props for `Hero`.
@@ -54,6 +55,7 @@ const Hero: FC<HeroProps> = ({ slice }) => {
       </div>
 
       {/* snowboard abs positioned */}
+      <InteractiveSnowboard />
     </Bounded>
   );
 };
