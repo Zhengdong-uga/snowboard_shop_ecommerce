@@ -1,5 +1,6 @@
 "use client";
 
+import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
 
@@ -13,7 +14,7 @@ export function InteractiveSnowboard({}: Props) {
         camera={{ position: [1.5, 1, 1.4], fov: 55 }}
       >
         <Suspense>
-          <scene />
+          <Scene />
         </Suspense>
       </Canvas>
     </div>
@@ -23,7 +24,10 @@ export function InteractiveSnowboard({}: Props) {
 function Scene() {
   return (
     <group>
-      <pointLight position={[1, 1, 1]} />
+      {/* <pointLight position={[1, 1, 1]} intensity={5} />
+      <pointLight position={[-2, 1, 1]} intensity={5} /> */}
+      <OrbitControls />
+      <Environment files={"/hdr/warehouse-256.hdr"} />
       <mesh>
         <meshStandardMaterial />
         <boxGeometry />
