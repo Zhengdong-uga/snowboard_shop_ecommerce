@@ -1,12 +1,14 @@
 import * as THREE from "three";
-import React from "react";
-import { useGLTF } from "@react-three/drei";
+import React, { useMemo } from "react";
+import { useGLTF, useTexture } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
 type SnowboardProps = {};
 
 type GLTFResult = GLTF & {
   nodes: {
+    frontDiffuse: THREE.Mesh;
+    frontRoughness: THREE.Mesh;
     snowboard_low: THREE.Mesh;
   };
   materials: {
@@ -16,6 +18,21 @@ type GLTFResult = GLTF & {
 
 export function Snowboard(props: SnowboardProps) {
   const { nodes, materials } = useGLTF("/result.gltf") as GLTFResult;
+
+  const frontDiffuse = useTexture("/skateboard/griptape-diffuse.webp");
+  const frontRoughness = useTexture("/skateboard/griptape-roughness.webp");
+
+  const gripTapeMaterial = useMemo(() => {
+    const material = new THREE.MeshStandardMaterial({
+      map: frontDiffuse,
+      bumpMap: frontRoughness,
+      roughnessMap: frontRoughness,
+      bumpScale: 3.5,
+      roughness: 0.8,
+      color: "#555555",
+    });
+  }, [frontDiffuse, frontRoughness]);
+
   return (
     <group {...props} dispose={null}>
       <group>
