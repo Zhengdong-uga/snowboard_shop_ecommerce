@@ -19,30 +19,44 @@ type GLTFResult = GLTF & {
 export function Snowboard(props: SnowboardProps) {
   const { nodes, materials } = useGLTF("/result.gltf") as GLTFResult;
 
-  const frontDiffuse = useTexture("/skateboard/griptape-diffuse.webp");
-  const frontRoughness = useTexture("/skateboard/griptape-roughness.webp");
+  const frontDiffuse = useTexture("/snowboard/qizi2.webp");
+  // const frontRoughness = useTexture("/skateboard/griptape-roughness.webp");
 
   const gripTapeMaterial = useMemo(() => {
     const material = new THREE.MeshStandardMaterial({
       map: frontDiffuse,
-      bumpMap: frontRoughness,
-      roughnessMap: frontRoughness,
+      // bumpMap: frontRoughness,
+      // roughnessMap: frontRoughness,
       bumpScale: 3.5,
-      roughness: 0.8,
+      roughness: 0,
       color: "#555555",
     });
-  }, [frontDiffuse, frontRoughness]);
+
+    return material;
+  }, [frontDiffuse]);
+
+  const boltColor = "#555555";
+
+  const boltMaterial = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: boltColor,
+        metalness: 0.5,
+        roughness: 0.3,
+      }),
+    [boltColor]
+  );
 
   return (
     <group {...props} dispose={null}>
       <group>
-        <group name="RootNode">
+        <group name="Scene">
           <mesh
             name="snowboard_low"
             castShadow
             receiveShadow
             geometry={nodes.snowboard_low.geometry}
-            material={materials.snowboard_low}
+            material={gripTapeMaterial}
             position={[0.2, 0.1, 0]}
             rotation={[-Math.PI, -3, 0]}
             scale={1}
