@@ -20,7 +20,8 @@ type GLTFResult = GLTF & {
 export function Snowboard1(props: SnowboardProps) {
   const { nodes, materials } = useGLTF("/result.gltf") as GLTFResult;
 
-  const frontDiffuse = useTexture("/snowboard/qizi2.webp");
+  const frontDiffuse = useTexture("/snowboard/Board_Variant_C.png");
+
   // const frontRoughness = useTexture("/skateboard/griptape-roughness.webp");
 
   const gripTapeMaterial = useMemo(() => {
@@ -28,23 +29,32 @@ export function Snowboard1(props: SnowboardProps) {
       map: frontDiffuse,
       // bumpMap: frontRoughness,
       // roughnessMap: frontRoughness,
-      bumpScale: 3.5,
+      bumpScale: 0,
       roughness: 0,
-      color: "#555555",
     });
     return material;
   }, [frontDiffuse]);
 
-  const boltColor = "#555555";
-
-  const boltMaterial = useMemo(
+  const bindingColor = "#555555";
+  const bindingMaterial = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: boltColor,
+        color: bindingColor,
         metalness: 0.5,
         roughness: 0.3,
       }),
-    [boltColor]
+    [bindingColor]
+  );
+
+  const binding2Color = "#555555";
+  const binding2Material = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: binding2Color,
+        metalness: 0.5,
+        roughness: 0.3,
+      }),
+    [binding2Color]
   );
 
   return (
@@ -57,8 +67,8 @@ export function Snowboard1(props: SnowboardProps) {
               castShadow
               receiveShadow
               geometry={nodes.Binding_l.geometry}
-              material={materials.Binding}
-              position={[-0.25, 0.01, 0]}
+              material={binding2Material}
+              position={[-0.25, 0.01, -0.02]}
               scale={0.01}
             />
             <mesh
@@ -66,8 +76,8 @@ export function Snowboard1(props: SnowboardProps) {
               castShadow
               receiveShadow
               geometry={nodes.Binding_r.geometry}
-              material={materials.Binding}
-              position={[0.2, 0.01, 0]}
+              material={bindingMaterial}
+              position={[0.2, 0.01, -0.02]}
               scale={0.01}
             />
             <mesh
@@ -75,7 +85,7 @@ export function Snowboard1(props: SnowboardProps) {
               castShadow
               receiveShadow
               geometry={nodes.board.geometry}
-              material={materials.Board_Variant_A}
+              material={gripTapeMaterial}
               position={[0, 0, 0]}
               scale={0.01}
             />
