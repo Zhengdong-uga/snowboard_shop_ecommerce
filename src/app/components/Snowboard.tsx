@@ -59,7 +59,7 @@ export function Snowboard(props: SnowboardProps) {
             material={gripTapeMaterial}
             position={[0.2, 0.1, 0]}
             rotation={[-Math.PI, -3, 0]}
-            scale={1}
+            scale={1.1}
           />
         </group>
       </group>
