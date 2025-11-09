@@ -40,6 +40,30 @@
             "allowText": true,
             "repeat": false
           }
+        },
+        "snowboard_texture": {
+          "type": "Image",
+          "config": {
+            "label": "Snowboard Texture",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "snowboard_binding_texture_l": {
+          "type": "Image",
+          "config": {
+            "label": "Snowboard Binding Texture L",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "snowboard_binding_texture_r": {
+          "type": "Image",
+          "config": {
+            "label": "Snowboard Binding Texture R",
+            "constraint": {},
+            "thumbnails": []
+          }
         }
       },
       "items": {}

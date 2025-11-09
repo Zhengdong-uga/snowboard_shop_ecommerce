@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Content } from "@prismicio/client";
+import { asImageSrc, Content } from "@prismicio/client";
 import {
   PrismicRichText,
   PrismicText,
@@ -14,6 +14,10 @@ import { TallLogo } from "./TallLogo";
 import { WideLogo } from "./WideLogo";
 import { InteractiveSnowboard } from "./InteractiveSnowboard";
 
+const DEFAULT_BOARD_TEXTURE = "/snowboard/Board_Variant_A.png";
+const DEFAULT_BINDING_L_TEXTURE = "/snowboard/Bingdings1.png";
+const DEFAULT_BINDING_R_TEXTURE = "/snowboard/Bingdings1.png";
+
 /**
  * Props for `Hero`.
  */
@@ -23,6 +27,17 @@ export type HeroProps = SliceComponentProps<Content.HeroSlice>;
  * Component for "Hero" Slices.
  */
 const Hero: FC<HeroProps> = ({ slice }) => {
+  const boardTextureUrl =
+    asImageSrc(slice.primary.snowboard_texture) || DEFAULT_BOARD_TEXTURE;
+
+  const BingdingLTextureUrl =
+    asImageSrc(slice.primary.snowboard_binding_texture_l) ||
+    DEFAULT_BINDING_L_TEXTURE;
+
+  const BingdingRTextureUrl =
+    asImageSrc(slice.primary.snowboard_binding_texture_r) ||
+    DEFAULT_BINDING_R_TEXTURE;
+
   return (
     <Bounded
       data-slice-type={slice.slice_type}

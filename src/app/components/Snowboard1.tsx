@@ -20,7 +20,10 @@ type GLTFResult = GLTF & {
 export function Snowboard1(props: SnowboardProps) {
   const { nodes, materials } = useGLTF("/result.gltf") as GLTFResult;
 
-  const frontDiffuse = useTexture("/snowboard/Board_Variant_C.png");
+  const frontDiffuse = useTexture("/snowboard/Board_Variant_A.png");
+  const frontDiffuse2 = useTexture("/snowboard/greg-gossel.jpg");
+
+  frontDiffuse.flipY = false;
 
   // const frontRoughness = useTexture("/skateboard/griptape-roughness.webp");
 
@@ -35,26 +38,31 @@ export function Snowboard1(props: SnowboardProps) {
     return material;
   }, [frontDiffuse]);
 
-  const bindingColor = "#555555";
+  const bindingTexture = useTexture("snowboard/BindingTextures/Onyx.jpg");
+  bindingTexture.flipY = false;
+  const bindingTexture2 = useTexture(
+    "snowboard/BindingTextures/MetalPlates006.jpg"
+  );
+  bindingTexture2.flipY = false;
+
   const bindingMaterial = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: bindingColor,
-        metalness: 0.5,
+        map: bindingTexture,
         roughness: 0.3,
+        color: "#555555",
       }),
-    [bindingColor]
+    [bindingTexture]
   );
 
-  const binding2Color = "#555555";
   const binding2Material = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: binding2Color,
-        metalness: 0.5,
+        map: bindingTexture2,
         roughness: 0.3,
+        color: "#555555",
       }),
-    [binding2Color]
+    [bindingTexture2]
   );
 
   return (

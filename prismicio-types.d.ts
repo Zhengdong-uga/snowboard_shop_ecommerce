@@ -627,6 +627,36 @@ export interface HeroSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/link
    */
   button: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+  /**
+   * Snowboard Texture field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.snowboard_texture
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  snowboard_texture: prismic.ImageField<never>;
+
+  /**
+   * Snowboard Binding Texture L field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.snowboard_binding_texture_l
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  snowboard_binding_texture_l: prismic.ImageField<never>;
+
+  /**
+   * Snowboard Binding Texture R field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.snowboard_binding_texture_r
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  snowboard_binding_texture_r: prismic.ImageField<never>;
 }
 
 /**
