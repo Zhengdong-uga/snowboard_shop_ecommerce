@@ -75,6 +75,7 @@ const Hero: FC<HeroProps> = ({ slice }) => {
         boardTextureURL={boardTextureURL}
         bindingLTextureURL={bindingLTextureURL}
         bindingRTextureURL={bindingRTextureURL}
+        bindingColor={""}
       />
     </Bounded>
   );

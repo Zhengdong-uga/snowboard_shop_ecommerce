@@ -34,7 +34,6 @@ export function Snowboard1({
   boardTextureURLs,
   boardTextureURL,
   bindingColor,
-  constantWheelSpin,
 }: SnowboardProps) {
   const { nodes } = useGLTF("/result.gltf") as GLTFResult;
   const frontDiffuse = useTexture("/snowboard/Board_Variant_A.png");
@@ -64,23 +63,35 @@ export function Snowboard1({
   );
   const bindingRTexture = bindingRTextures[bindingRTextureIndex];
 
+  //render boardTexture
+  const boardTextures = useTexture(boardTextureURLs);
+  boardTextures.forEach((texture) => {
+    texture.flipY = false;
+    texture.colorSpace = THREE.SRGBColorSpace;
+  });
+  const boardTextureIndex = boardTextureURLs.findIndex(
+    (url) => url === boardTextureURL
+  );
+  const boardTexture = boardTextures[boardTextureIndex];
+
+  //materials
   const boardMaterial = useMemo(() => {
     const material = new THREE.MeshStandardMaterial({
-      map: frontDiffuse,
+      map: boardTexture,
       // bumpMap: frontRoughness,
       // roughnessMap: frontRoughness,
       bumpScale: 0,
       roughness: 0,
     });
     return material;
-  }, [frontDiffuse]);
+  }, [boardTexture]);
 
   // const bindingLTexture = useTexture("snowboard/BindingTextures/Onyx.jpg");
-  bindingLTexture.flipY = false;
-  // const bindingRTexture = useTexture(
-  //   "snowboard/BindingTextures/MetalPlates006.jpg"
-  // );
-  bindingRTexture.flipY = false;
+  // bindingLTexture.flipY = false;
+  // // const bindingRTexture = useTexture(
+  // //   "snowboard/BindingTextures/MetalPlates006.jpg"
+  // // );
+  // bindingRTexture.flipY = false;
 
   const bindingMaterial = useMemo(
     () =>
@@ -113,7 +124,7 @@ export function Snowboard1({
               receiveShadow
               geometry={nodes.Binding_l.geometry}
               material={binding2Material}
-              position={[-0.25, 0.01, -0.02]}
+              position={[-0.25, 0.11, -0.02]}
               scale={0.01}
             />
             <mesh
@@ -122,7 +133,7 @@ export function Snowboard1({
               receiveShadow
               geometry={nodes.Binding_r.geometry}
               material={bindingMaterial}
-              position={[0.2, 0.01, -0.02]}
+              position={[0.2, 0.11, -0.02]}
               scale={0.01}
             />
             <mesh
@@ -131,7 +142,7 @@ export function Snowboard1({
               receiveShadow
               geometry={nodes.board.geometry}
               material={boardMaterial}
-              position={[0, 0, 0]}
+              position={[0, 0.1, 0]}
               scale={0.01}
             />
           </group>
