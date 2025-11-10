@@ -3,7 +3,15 @@ import React, { useMemo } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
-type SnowboardProps = {};
+type SnowboardProps = {
+  bindingLTextureURLs: string[];
+  bindingLTextureURL: string;
+  bindingRTextureURLs: string[];
+  bindingRTextureURL: string;
+  boardTextureURLs: string[];
+  boardTextureURL: string;
+  constantWheelSpin?: boolean;
+};
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -16,8 +24,26 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function Snowboard(props: SnowboardProps) {
-  const { nodes, materials } = useGLTF("/result.gltf") as GLTFResult;
+export function Snowboard({
+  bindingLTextureURLs,
+  bindingLTextureURL,
+  bindingRTextureURLs,
+  bindingRTextureURL,
+  boardTextureURLs,
+  boardTextureURL,
+  constantWheelSpin,
+}: SnowboardProps) {
+  const { nodes } = useGLTF("/result.gltf") as GLTFResult;
+
+  const bindingLTextures = useTexture(bindingLTextureURLs);
+  bindingLTextures.forEach((texture) => {
+    texture.flipY = false;
+    texture.colorSpace = THREE.SRGBColorSpace;
+  });
+  const bindingLTextureIndex = bindingLTextureURLs.findIndex(
+    (url) => url === bindingLTextureURL
+  );
+  const bindingLTexture = bindingLTextures[bindingLTextureIndex];
 
   const frontDiffuse = useTexture("/snowboard/qizi2.webp");
   // const frontRoughness = useTexture("/skateboard/griptape-roughness.webp");
@@ -48,7 +74,7 @@ export function Snowboard(props: SnowboardProps) {
   );
 
   return (
-    <group {...props} dispose={null}>
+    <group dispose={null}>
       <group>
         <group name="Scene">
           <mesh

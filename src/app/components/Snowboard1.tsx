@@ -3,7 +3,16 @@ import React, { useMemo } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
-type SnowboardProps = {};
+type SnowboardProps = {
+  bindingLTextureURLs: string[];
+  bindingLTextureURL: string;
+  bindingRTextureURLs: string[];
+  bindingRTextureURL: string;
+  boardTextureURLs: string[];
+  boardTextureURL: string;
+  bindingColor: string;
+  constantWheelSpin?: boolean;
+};
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -17,17 +26,45 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function Snowboard1(props: SnowboardProps) {
-  const { nodes, materials } = useGLTF("/result.gltf") as GLTFResult;
-
+export function Snowboard1({
+  bindingLTextureURLs,
+  bindingLTextureURL,
+  bindingRTextureURLs,
+  bindingRTextureURL,
+  boardTextureURLs,
+  boardTextureURL,
+  bindingColor,
+  constantWheelSpin,
+}: SnowboardProps) {
+  const { nodes } = useGLTF("/result.gltf") as GLTFResult;
   const frontDiffuse = useTexture("/snowboard/Board_Variant_A.png");
   const frontDiffuse2 = useTexture("/snowboard/greg-gossel.jpg");
-
   frontDiffuse.flipY = false;
-
   // const frontRoughness = useTexture("/skateboard/griptape-roughness.webp");
 
-  const gripTapeMaterial = useMemo(() => {
+  //render left binding textures
+  const bindingLTextures = useTexture(bindingLTextureURLs);
+  bindingLTextures.forEach((texture) => {
+    texture.flipY = false;
+    texture.colorSpace = THREE.SRGBColorSpace;
+  });
+  const bindingLTextureIndex = bindingLTextureURLs.findIndex(
+    (url) => url === bindingLTextureURL
+  );
+  const bindingLTexture = bindingLTextures[bindingLTextureIndex];
+
+  //render right binding textures
+  const bindingRTextures = useTexture(bindingRTextureURLs);
+  bindingRTextures.forEach((texture) => {
+    texture.flipY = false;
+    texture.colorSpace = THREE.SRGBColorSpace;
+  });
+  const bindingRTextureIndex = bindingRTextureURLs.findIndex(
+    (url) => url === bindingRTextureURL
+  );
+  const bindingRTexture = bindingRTextures[bindingRTextureIndex];
+
+  const boardMaterial = useMemo(() => {
     const material = new THREE.MeshStandardMaterial({
       map: frontDiffuse,
       // bumpMap: frontRoughness,
@@ -38,35 +75,35 @@ export function Snowboard1(props: SnowboardProps) {
     return material;
   }, [frontDiffuse]);
 
-  const bindingTexture = useTexture("snowboard/BindingTextures/Onyx.jpg");
-  bindingTexture.flipY = false;
-  const bindingTexture2 = useTexture(
-    "snowboard/BindingTextures/MetalPlates006.jpg"
-  );
-  bindingTexture2.flipY = false;
+  // const bindingLTexture = useTexture("snowboard/BindingTextures/Onyx.jpg");
+  bindingLTexture.flipY = false;
+  // const bindingRTexture = useTexture(
+  //   "snowboard/BindingTextures/MetalPlates006.jpg"
+  // );
+  bindingRTexture.flipY = false;
 
   const bindingMaterial = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        map: bindingTexture,
+        map: bindingLTexture,
         roughness: 0.3,
-        color: "#555555",
+        color: bindingColor,
       }),
-    [bindingTexture]
+    [bindingLTexture, bindingColor]
   );
 
   const binding2Material = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        map: bindingTexture2,
+        map: bindingRTexture,
         roughness: 0.3,
-        color: "#555555",
+        color: bindingColor,
       }),
-    [bindingTexture2]
+    [bindingRTexture, bindingColor]
   );
 
   return (
-    <group {...props} dispose={null}>
+    <group dispose={null}>
       <group>
         <group name="Scene">
           <group name="Sbowboard_Variant_A" rotation={[0.2, -1.7, 0.11]}>
@@ -93,7 +130,7 @@ export function Snowboard1(props: SnowboardProps) {
               castShadow
               receiveShadow
               geometry={nodes.board.geometry}
-              material={gripTapeMaterial}
+              material={boardMaterial}
               position={[0, 0, 0]}
               scale={0.01}
             />

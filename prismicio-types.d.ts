@@ -657,6 +657,16 @@ export interface HeroSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   snowboard_binding_texture_r: prismic.ImageField<never>;
+
+  /**
+   * Binding Color field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.binding_color
+   * - **Documentation**: https://prismic.io/docs/fields/color
+   */
+  binding_color: prismic.ColorField;
 }
 
 /**

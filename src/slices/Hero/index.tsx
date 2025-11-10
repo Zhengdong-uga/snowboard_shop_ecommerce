@@ -15,26 +15,27 @@ import { WideLogo } from "./WideLogo";
 import { InteractiveSnowboard } from "./InteractiveSnowboard";
 
 const DEFAULT_BOARD_TEXTURE = "/snowboard/Board_Variant_A.png";
-const DEFAULT_BINDING_L_TEXTURE = "/snowboard/Bingdings1.png";
-const DEFAULT_BINDING_R_TEXTURE = "/snowboard/Bingdings1.png";
+const DEFAULT_BINDING_L_TEXTURE = "/snowboard/Bindings1.png";
+const DEFAULT_BINDING_R_TEXTURE = "/snowboard/Bindings1.png";
 
 /**
  * Props for `Hero`.
  */
+
 export type HeroProps = SliceComponentProps<Content.HeroSlice>;
 
 /**
  * Component for "Hero" Slices.
  */
 const Hero: FC<HeroProps> = ({ slice }) => {
-  const boardTextureUrl =
+  const boardTextureURL =
     asImageSrc(slice.primary.snowboard_texture) || DEFAULT_BOARD_TEXTURE;
 
-  const BingdingLTextureUrl =
+  const bindingLTextureURL =
     asImageSrc(slice.primary.snowboard_binding_texture_l) ||
     DEFAULT_BINDING_L_TEXTURE;
 
-  const BingdingRTextureUrl =
+  const bindingRTextureURL =
     asImageSrc(slice.primary.snowboard_binding_texture_r) ||
     DEFAULT_BINDING_R_TEXTURE;
 
@@ -70,7 +71,11 @@ const Hero: FC<HeroProps> = ({ slice }) => {
       </div>
 
       {/* snowboard abs positioned */}
-      <InteractiveSnowboard />
+      <InteractiveSnowboard
+        boardTextureURL={boardTextureURL}
+        bindingLTextureURL={bindingLTextureURL}
+        bindingRTextureURL={bindingRTextureURL}
+      />
     </Bounded>
   );
 };

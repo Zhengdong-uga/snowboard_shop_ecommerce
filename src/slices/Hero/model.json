@@ -64,6 +64,13 @@
             "constraint": {},
             "thumbnails": []
           }
+        },
+        "binding_color": {
+          "type": "Color",
+          "config": {
+            "label": "Binding Color",
+            "placeholder": ""
+          }
         }
       },
       "items": {}

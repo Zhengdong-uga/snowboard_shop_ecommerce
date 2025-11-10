@@ -81,7 +81,6 @@
 				"thumbnails": {}
 			},
 			"snowboard_binding_texture_r": {
-				"__TYPE__": "ImageContent",
 				"origin": {
 					"id": "main",
 					"url": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5",
@@ -100,7 +99,14 @@
 					"background": "transparent"
 				},
 				"alt": "familiar",
+				"credits": null,
+				"__TYPE__": "ImageContent",
 				"thumbnails": {}
+			},
+			"binding_color": {
+				"__TYPE__": "FieldContent",
+				"value": "#24dcb9",
+				"type": "Color"
 			}
 		},
 		"items": []
