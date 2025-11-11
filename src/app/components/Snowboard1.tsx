@@ -117,15 +117,15 @@ export function Snowboard1({
     <group dispose={null}>
       <group>
         <group name="Scene">
-          <group name="Sbowboard_Variant_A" rotation={[0.2, -1.7, 0.11]}>
+          <group name="Sbowboard_Variant_A" rotation={[0.12, -1.75, 0.19]}>
             <mesh
               name="Binding_l"
               castShadow
               receiveShadow
               geometry={nodes.Binding_l.geometry}
               material={binding2Material}
-              position={[-0.25, 0.11, -0.02]}
-              scale={0.01}
+              position={[-0.7, 0.11, -0.33]}
+              scale={0.015}
             />
             <mesh
               name="Binding_r"
@@ -133,8 +133,8 @@ export function Snowboard1({
               receiveShadow
               geometry={nodes.Binding_r.geometry}
               material={bindingMaterial}
-              position={[0.2, 0.11, -0.02]}
-              scale={0.01}
+              position={[0.02, 0.11, -0.33]}
+              scale={0.015}
             />
             <mesh
               name="board"
@@ -142,8 +142,8 @@ export function Snowboard1({
               receiveShadow
               geometry={nodes.board.geometry}
               material={boardMaterial}
-              position={[0, 0.1, 0]}
-              scale={0.01}
+              position={[-0.3, 0.1, -0.3]}
+              scale={0.015}
             />
           </group>
         </group>
