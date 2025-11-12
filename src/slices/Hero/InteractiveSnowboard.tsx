@@ -265,7 +265,7 @@ function Scene({
     });
   }
 
-  // backside（后刃）powerslide（仅旋转；回收&回中性放慢）
+  // backside（后刃）powerslide（仅旋转；更稳定的后刃偏置）
   function powerslideBackside(board: THREE.Group) {
     gsap.killTweensOf(board.rotation);
 
@@ -273,30 +273,33 @@ function Scene({
     const startY = board.rotation.y;
     const startZ = board.rotation.z;
 
-    // 方向与幅度
-    const HEEL_SIGN = 1; // 看起来像前刃就改成 -1
-    const SPIN_DIR = 1; // 顺/逆时针反了就改 -1
-    const YAW_SPIN = 1.35; // 主旋转角（≈77°）
-    const PRE_YAW = 0.16; // 预加载反向 yaw
-    const PRE_ROLL = 0.16; // 预加载反向 roll
-    const UNLOAD_Z = 0.02; // 松刃时极浅刃角
-    const DRIFT_ROLL = 0.06; // 漂移期 roll 抖动
-    const NOSE_PITCH = 0.08; // 漂移时轻微压板头
+    // 刃向/方向
+    const HEEL_SIGN = -1; // 强制后刃
+    const SPIN_DIR = 1; // 顺/逆时针不对就改 -1
 
-    // 时长（前半快速、后半回收放慢）
+    // 幅度
+    const YAW_SPIN = 1.35; // 主旋角
+    const PRE_YAW = 0.16;
+    const PRE_ROLL = 0.16;
+    const UNLOAD_Z = 0.02;
+    const DRIFT_ROLL = 0.06;
+    const HEEL_BIAS = 0.1; // ★后刃偏置，保证漂移期一直偏向后刃
+    const NOSE_PITCH = 0.08;
+
+    // 时长
     const T_PRELOAD = 0.28;
     const T_UNLOAD = 0.18;
     const T_SPIN = 0.42;
     const T_OVERSHOOT = 0.1;
     const T_DRIFT_1 = 0.12;
     const T_DRIFT_2 = 0.22;
-    const T_BITE = 0.46; // 放慢
-    const T_NEUTRAL_1 = 0.24; // 放慢
-    const T_NEUTRAL_2 = 0.36; // 放慢
+    const T_BITE = 0.46;
+    const T_NEUTRAL_1 = 0.24;
+    const T_NEUTRAL_2 = 0.36;
 
     const tl = gsap.timeline();
 
-    // 0) 预加载
+    // 0) 预加载（反向上刃）
     tl.to(board.rotation, {
       y: startY - SPIN_DIR * PRE_YAW,
       z: startZ - HEEL_SIGN * PRE_ROLL,
@@ -321,40 +324,40 @@ function Scene({
       ease: "power3.out",
     });
 
-    // 2.1) 超调
+    // 2.1) 超调 + 立刻给后刃偏置
     tl.to(board.rotation, {
       y: startY + SPIN_DIR * YAW_SPIN,
-      z: startZ + HEEL_SIGN * (-DRIFT_ROLL * 0.6),
+      z: startZ + HEEL_SIGN * (-DRIFT_ROLL * 0.6) + HEEL_SIGN * HEEL_BIAS, // ★加偏置
       duration: T_OVERSHOOT,
       ease: "power1.inOut",
     });
 
-    // 3) 漂移期小抖
+    // 3) 漂移期小抖（围绕“后刃偏置”上下抖动）
     tl.to(board.rotation, {
-      z: startZ + HEEL_SIGN * (DRIFT_ROLL * 0.5),
+      z: startZ + HEEL_SIGN * (HEEL_BIAS + DRIFT_ROLL * 0.5), // ★中心仍在后刃
       x: startX + NOSE_PITCH * 0.85,
       duration: T_DRIFT_1,
       ease: "sine.inOut",
     });
     tl.to(board.rotation, {
-      z: startZ + HEEL_SIGN * (-DRIFT_ROLL * 0.35),
+      z: startZ + HEEL_SIGN * (HEEL_BIAS - DRIFT_ROLL * 0.35),
       x: startX + NOSE_PITCH * 0.7,
       duration: T_DRIFT_2,
       ease: "sine.inOut",
     });
 
-    // 4) 接后刃（咬住）——放慢 & 平顺
+    // 4) 咬住后刃（更明显的 heel）
     tl.to(board.rotation, {
       y: startY + SPIN_DIR * (YAW_SPIN * 0.6),
-      z: startZ + HEEL_SIGN * 0.22,
+      z: startZ + HEEL_SIGN * (0.22 + HEEL_BIAS * 0.6), // ★保持后刃
       x: startX + NOSE_PITCH * 0.6,
       duration: T_BITE,
       ease: "sine.inOut",
     });
 
-    // 5) 慢速回中性（两段）
+    // 5) 慢速回中性
     tl.to(board.rotation, {
-      z: startZ,
+      z: startZ + HEEL_SIGN * (HEEL_BIAS * 0.25), // 缓慢抬回，先收偏置
       y: startY,
       x: startX + 0.01,
       duration: T_NEUTRAL_1,
@@ -392,6 +395,8 @@ function Scene({
           <mesh
             rotation={[0, -0.2, 0]}
             position={[0.55, 0.1, -1.25]}
+            // rotation={[0, -0.2, 0]}
+            // position={[0.55, 0.1, -1.25]}
             name="back"
             onClick={onClick}
           >
@@ -402,7 +407,9 @@ function Scene({
           {/* side */}
           <mesh
             rotation={[-0.1, -0.15, 0]}
-            position={[0.5, 0.11, -0.28]}
+            position={[0.4, 0.11, -0.28]}
+            // rotation={[-0.1, -0.15, 0]}
+            // position={[0.4, 0.11, -0.28]}
             name="side"
             onClick={onClick}
           >
@@ -413,7 +420,9 @@ function Scene({
           {/* front */}
           <mesh
             rotation={[0, -0.15, 0]}
-            position={[0.1, 0.19, 0.7]}
+            position={[0.3, 0.2, 0.6]}
+            // rotation={[0, -0.15, 0]}
+            // position={[0.3, 0.2, 0.6]}
             name="front"
             onClick={onClick}
           >

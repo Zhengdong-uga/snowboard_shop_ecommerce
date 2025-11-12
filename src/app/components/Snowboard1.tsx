@@ -117,7 +117,9 @@ export function Snowboard1({
     <group dispose={null}>
       <group>
         <group name="Scene">
-          <group name="Sbowboard_Variant_A" rotation={[0.12, -1.75, 0.19]}>
+          <group name="Sbowboard_Variant_A" rotation={[0.11, -1.75, 0.19]}>
+            {/* {[0.11, -1.75, 0.19]}> version1 */}
+            {/* {[1, -2.9, 0.6]} version2*/}
             <mesh
               name="Binding_l"
               castShadow
@@ -143,7 +145,10 @@ export function Snowboard1({
               geometry={nodes.board.geometry}
               material={boardMaterial}
               position={[-0.3, 0.1, -0.3]}
+              // version 1 position={[-0.3, 0.1, -0.3]}
+              // version 2 position={[-0.3, 0.1, -0.05]}
               scale={0.015}
+              // scale={0.012}
             />
           </group>
         </group>
