@@ -6,6 +6,7 @@ import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas, ThreeEvent } from "@react-three/fiber";
 import React, { Suspense, useRef } from "react";
 import gsap from "gsap";
+import { Hotspot } from "./Hotspot";
 
 type Props = {
   boardTextureURL: string;
@@ -391,6 +392,12 @@ function Scene({
             constantWheelSpin
           />
 
+          <Hotspot
+            position={[0.55, 0.1, -1.25]}
+            isVisible={true}
+            color="#B8FC39"
+          />
+
           {/* back */}
           <mesh
             rotation={[0, -0.2, 0]}
@@ -401,7 +408,7 @@ function Scene({
             onClick={onClick}
           >
             <boxGeometry args={[0.25, 0.02, 0.4]} />
-            <meshStandardMaterial visible={true} />
+            <meshStandardMaterial visible={false} />
           </mesh>
 
           {/* side */}
