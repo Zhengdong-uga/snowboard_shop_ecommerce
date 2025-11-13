@@ -37,7 +37,6 @@ export function Snowboard1({
 }: SnowboardProps) {
   const { nodes } = useGLTF("/result.gltf") as GLTFResult;
   const frontDiffuse = useTexture("/snowboard/Board_Variant_A.png");
-  const frontDiffuse2 = useTexture("/snowboard/greg-gossel.jpg");
   frontDiffuse.flipY = false;
   // const frontRoughness = useTexture("/skateboard/griptape-roughness.webp");
 

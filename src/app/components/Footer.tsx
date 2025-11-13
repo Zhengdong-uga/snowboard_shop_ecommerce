@@ -7,9 +7,7 @@ import { Logo } from "./Logo";
 import { Bounded } from "./Bounded";
 import { FooterPhysics } from "./FooterPhysics";
 
-type Props = {};
-
-export async function Footer({}: Props) {
+export async function Footer() {
   const client = createClient();
   const settings = await client.getSingle("settings");
 
