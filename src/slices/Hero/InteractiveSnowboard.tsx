@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { Snowboard1 } from "@/app/components/Snowboard1";
 import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas, ThreeEvent } from "@react-three/fiber";
-import React, { Suspense, useRef } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import gsap from "gsap";
 import { Hotspot } from "./Hotspot";
 
@@ -48,13 +48,22 @@ function Scene({
 }: Props) {
   const containerRef = useRef<THREE.Group>(null);
 
+  const [animating, setAnimating] = useState(false);
+  const [showHotspot, setShowHotspot] = useState({
+    back: true,
+    side: true,
+    front: true,
+  });
+
   function onClick(event: ThreeEvent<MouseEvent>) {
     event.stopPropagation();
 
     const board = containerRef.current;
-    if (!board) return;
+    if (!board || animating) return;
 
     const { name } = event.object;
+
+    setShowHotspot((current) => ({ ...current, [name]: false }));
 
     if (name === "back") {
       ollie(board);
@@ -67,8 +76,9 @@ function Scene({
 
   function jumpBoard(board: THREE.Group) {
     // Ollie jump
+    setAnimating(true);
     gsap
-      .timeline()
+      .timeline({ onComplete: () => setAnimating(false) })
       .to(board.position, {
         y: 0.8,
         duration: 0.51,
@@ -86,7 +96,7 @@ function Scene({
     jumpBoard(board);
 
     gsap
-      .timeline()
+      .timeline({ onComplete: () => setAnimating(false) })
       .to(board.rotation, { x: -0.6, duration: 0.26, ease: "none" })
       .to(board.rotation, { x: 0.4, duration: 0.82, ease: "power2.in" })
       .to(board.rotation, { x: 0, duration: 0.12, ease: "none" });
@@ -94,6 +104,7 @@ function Scene({
 
   // 刻滑（仅旋转；右 → 左 → 中），用四元数组合避免初始旋转耦合
   function switchEdgeCycle(board: THREE.Group) {
+    setAnimating(true);
     // 初始姿态（四元数）
     const q0 = board.quaternion.clone();
 
@@ -127,7 +138,7 @@ function Scene({
     const PITCH = 0.06; // 轻压板头（适度，避免“翘尾”）
     const SPEED = 4; // 越大越慢（你喜欢的节奏）
 
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({ onComplete: () => setAnimating(false) });
 
     // 0) 预加载（轻微反压到左，准备入右刻）
     tl.to(params, {
@@ -298,7 +309,7 @@ function Scene({
     const T_NEUTRAL_1 = 0.24;
     const T_NEUTRAL_2 = 0.36;
 
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({ onComplete: () => setAnimating(false) });
 
     // 0) 预加载（反向上刃）
     tl.to(board.rotation, {
@@ -392,13 +403,13 @@ function Scene({
             constantWheelSpin
           />
 
+          {/* back */}
           <Hotspot
             position={[0.55, 0.1, -1.25]}
-            isVisible={true}
+            isVisible={!animating && showHotspot.back}
             color="#B8FC39"
           />
 
-          {/* back */}
           <mesh
             rotation={[0, -0.2, 0]}
             position={[0.55, 0.1, -1.25]}
@@ -412,6 +423,12 @@ function Scene({
           </mesh>
 
           {/* side */}
+          <Hotspot
+            position={[0.4, 0.13, -0.28]}
+            isVisible={!animating && showHotspot.side}
+            color="#FF7A51"
+          />
+
           <mesh
             rotation={[-0.1, -0.15, 0]}
             position={[0.4, 0.11, -0.28]}
@@ -421,10 +438,16 @@ function Scene({
             onClick={onClick}
           >
             <boxGeometry args={[0.2, 0.01, 0.8]} />
-            <meshStandardMaterial visible={true} />
+            <meshStandardMaterial visible={false} />
           </mesh>
 
           {/* front */}
+          <Hotspot
+            position={[0.2, 0.21, 0.75]}
+            isVisible={!animating && showHotspot.front}
+            color="#46ACFA"
+          />
+
           <mesh
             rotation={[0, -0.15, 0]}
             position={[0.3, 0.2, 0.6]}
@@ -434,7 +457,7 @@ function Scene({
             onClick={onClick}
           >
             <boxGeometry args={[0.2, 0.03, 0.5]} />
-            <meshStandardMaterial visible={true} />
+            <meshStandardMaterial visible={false} />
           </mesh>
         </group>
       </group>
