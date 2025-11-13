@@ -14,7 +14,7 @@ export function Bounded({
   children,
   ...restProps
 }: BoundedProps) {
-  const Comp = as || "section";
+  const Comp: any = as || "section";
 
   return (
     <Comp
