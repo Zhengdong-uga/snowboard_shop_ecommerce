@@ -2,6 +2,7 @@ import { SVGProps } from "react";
 export function Logo({ ...props }: SVGProps<SVGSVGElement>) {
   return (
     <svg
+      {...props}
       width="124"
       height="70"
       viewBox="0 0 248 140"
