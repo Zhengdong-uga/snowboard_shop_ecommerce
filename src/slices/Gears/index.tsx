@@ -1,10 +1,6 @@
-import { FC, JSX } from "react";
+import { JSX } from "react";
 import { Content } from "@prismicio/client";
-import {
-  PrismicRichText,
-  PrismicText,
-  SliceComponentProps,
-} from "@prismicio/react";
+import { PrismicText, SliceComponentProps } from "@prismicio/react";
 import { Bounded } from "@/app/components/Bounded";
 import { Heading } from "@/app/components/Heading";
 import { createClient } from "@/prismicio";

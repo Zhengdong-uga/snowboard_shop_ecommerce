@@ -4,7 +4,6 @@ import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import { Bounded } from "@/app/components/Bounded";
 import { Heading } from "@/app/components/Heading";
 import { SnowboardProduct } from "./SnowboardProduct";
-import { BindingsProduct } from "./BindingsProduct";
 import { SlideIn } from "@/app/components/SlideIn";
 
 /**

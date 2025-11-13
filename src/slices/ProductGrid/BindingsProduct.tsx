@@ -1,5 +1,4 @@
 import { ButtonLink } from "@/app/components/ButtonLink";
-import { Heading } from "@/app/components/Heading";
 import { HorizontalLine, VerticalLine } from "@/app/components/Line";
 import { createClient } from "@/prismicio";
 import { Content, isFilled } from "@prismicio/client";
