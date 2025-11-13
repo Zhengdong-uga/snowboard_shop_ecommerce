@@ -9,14 +9,11 @@ type BoundedProps = {
 };
 
 export function Bounded({
-  as,
+  as: Comp = "section",
   className,
   children,
   ...restProps
 }: BoundedProps) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const Comp: any = as || "section";
-
   return (
     <Comp
       className={clsx(
