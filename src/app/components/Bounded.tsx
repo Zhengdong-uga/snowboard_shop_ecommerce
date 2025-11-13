@@ -9,11 +9,13 @@ type BoundedProps = {
 };
 
 export function Bounded({
-  as: Comp = "section",
+  as,
   className,
   children,
   ...restProps
 }: BoundedProps) {
+  const Comp: any = as || "section";
+
   return (
     <Comp
       className={clsx(
