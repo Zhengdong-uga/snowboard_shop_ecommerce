@@ -14,6 +14,7 @@ export function Bounded({
   children,
   ...restProps
 }: BoundedProps) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const Comp: any = as || "section";
 
   return (
