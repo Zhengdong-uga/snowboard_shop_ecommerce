@@ -2,11 +2,14 @@
 
 import * as THREE from "three";
 import { Snowboard1 } from "@/app/components/Snowboard1";
-import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
-import { Canvas, ThreeEvent } from "@react-three/fiber";
-import React, { Suspense, useRef, useState } from "react";
+import { ContactShadows, Environment, Html } from "@react-three/drei";
+import { Canvas, ThreeEvent, useThree } from "@react-three/fiber";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { Hotspot } from "./Hotspot";
+import { WavyPaths } from "./WavyPath";
+
+const INITIAL_CAMERA_POSITION = [1.5, 1, 1.4] as const;
 
 type Props = {
   boardTextureURL: string;
@@ -25,7 +28,10 @@ export function InteractiveSnowboard({
     <div className="absolute inset-0 z-10 flex items-center justify-center">
       <Canvas
         className="min-h-[60rem] w-full"
-        camera={{ position: [1.5, 1, 1.4], fov: 55 }}
+        // 正常视角
+        camera={{ position: INITIAL_CAMERA_POSITION, fov: 55 }}
+        // camera={{ position: [1.4, 4, 1], fov: 35 }}俯视动画角度 1
+        // camera={{ position: [1.4, 4, -0.5], fov: 40 }} 俯视动画角度
       >
         <Suspense>
           <Scene
@@ -47,6 +53,7 @@ function Scene({
   bindingColor,
 }: Props) {
   const containerRef = useRef<THREE.Group>(null);
+  const originRef = useRef<THREE.Group>(null);
 
   const [animating, setAnimating] = useState(false);
   const [showHotspot, setShowHotspot] = useState({
@@ -55,10 +62,51 @@ function Scene({
     front: true,
   });
 
+  const { camera } = useThree();
+
+  useEffect(() => {
+    if (!containerRef.current || !originRef.current) return;
+
+    gsap.to(containerRef.current.position, {
+      x: 0.2,
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+    });
+
+    gsap.to(originRef.current.rotation, {
+      y: Math.PI / 64,
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+    });
+  }, []);
+
+  useEffect(() => {
+    camera.lookAt(new THREE.Vector3(-0.2, 0.15, 0));
+
+    setZoom();
+
+    window.addEventListener("resize", setZoom);
+
+    function setZoom() {
+      const scale = Math.max(Math.min(1000 / window.innerWidth, 2.2), 1);
+
+      camera.position.x = INITIAL_CAMERA_POSITION[0] * scale;
+      camera.position.y = INITIAL_CAMERA_POSITION[1] * scale;
+      camera.position.z = INITIAL_CAMERA_POSITION[2] * scale;
+    }
+
+    return () => window.removeEventListener("resize", setZoom);
+  }, [camera]);
+
   function onClick(event: ThreeEvent<MouseEvent>) {
     event.stopPropagation();
 
     const board = containerRef.current;
+    const origin = originRef.current;
     if (!board || animating) return;
 
     const { name } = event.object;
@@ -389,78 +437,94 @@ function Scene({
       {/* <pointLight position={[1, 1, 1]} intensity={5} />
       <pointLight position={[-2, 1, 1]} intensity={5} /> */}
       <Environment files={"/hdr/warehouse-256.hdr"} />
-      <group ref={containerRef} position={[-0.25, 0, -0.635]}>
-        <group position={[0, -0.086, 0.635]}>
-          <Snowboard1
-            bindingLTextureURLs={[bindingLTextureURL]}
-            bindingLTextureURL={bindingLTextureURL}
-            bindingRTextureURLs={[bindingRTextureURL]}
-            bindingRTextureURL={bindingRTextureURL}
-            boardTextureURLs={[boardTextureURL]}
-            boardTextureURL={boardTextureURL}
-            bindingColor={bindingColor}
-            constantWheelSpin
-          />
+      <group ref={originRef}>
+        <group ref={containerRef} position={[-0.25, 0, -0.635]}>
+          <group position={[0, -0.086, 0.635]}>
+            <Snowboard1
+              bindingLTextureURLs={[bindingLTextureURL]}
+              bindingLTextureURL={bindingLTextureURL}
+              bindingRTextureURLs={[bindingRTextureURL]}
+              bindingRTextureURL={bindingRTextureURL}
+              boardTextureURLs={[boardTextureURL]}
+              boardTextureURL={boardTextureURL}
+              bindingColor={bindingColor}
+              constantWheelSpin
+            />
 
-          {/* back */}
-          <Hotspot
-            position={[0.55, 0.1, -1.25]}
-            isVisible={!animating && showHotspot.back}
-            color="#B8FC39"
-          />
+            {/* back */}
+            <Hotspot
+              position={[0.55, 0.1, -1.25]}
+              isVisible={!animating && showHotspot.back}
+              color="#B8FC39"
+            />
 
-          <mesh
-            rotation={[0, -0.2, 0]}
-            position={[0.55, 0.1, -1.25]}
-            // rotation={[0, -0.2, 0]}
-            // position={[0.55, 0.1, -1.25]}
-            name="back"
-            onClick={onClick}
+            <mesh
+              rotation={[0, -0.2, 0]}
+              position={[0.55, 0.1, -1.25]}
+              // rotation={[0, -0.2, 0]}
+              // position={[0.55, 0.1, -1.25]}
+              name="back"
+              onClick={onClick}
+            >
+              <boxGeometry args={[0.25, 0.02, 0.4]} />
+              <meshStandardMaterial visible={false} />
+            </mesh>
+
+            {/* side */}
+            <Hotspot
+              position={[0.4, 0.13, -0.28]}
+              isVisible={!animating && showHotspot.side}
+              color="#FF7A51"
+            />
+
+            <mesh
+              rotation={[-0.1, -0.15, 0]}
+              position={[0.4, 0.11, -0.28]}
+              // rotation={[-0.1, -0.15, 0]}
+              // position={[0.4, 0.11, -0.28]}
+              name="side"
+              onClick={onClick}
+            >
+              <boxGeometry args={[0.2, 0.01, 0.8]} />
+              <meshStandardMaterial visible={false} />
+            </mesh>
+
+            {/* front */}
+            <Hotspot
+              position={[0.2, 0.21, 0.75]}
+              isVisible={!animating && showHotspot.front}
+              color="#46ACFA"
+            />
+
+            <mesh
+              rotation={[0, -0.15, 0]}
+              position={[0.3, 0.2, 0.6]}
+              // rotation={[0, -0.15, 0]}
+              // position={[0.3, 0.2, 0.6]}
+              name="front"
+              onClick={onClick}
+            >
+              <boxGeometry args={[0.2, 0.03, 0.5]} />
+              <meshStandardMaterial visible={false} />
+            </mesh>
+          </group>
+        </group>
+        <ContactShadows opacity={0.6} position={[0, -0.08, 0]} />
+        <group
+          rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
+          position={[0, -0.09, -0.5]}
+          scale={[0.2, 0.2, 0.2]}
+        >
+          <Html
+            wrapperClass="pointer-events-none"
+            transform
+            zIndexRange={[1, 0]}
+            occlude="blending"
           >
-            <boxGeometry args={[0.25, 0.02, 0.4]} />
-            <meshStandardMaterial visible={false} />
-          </mesh>
-
-          {/* side */}
-          <Hotspot
-            position={[0.4, 0.13, -0.28]}
-            isVisible={!animating && showHotspot.side}
-            color="#FF7A51"
-          />
-
-          <mesh
-            rotation={[-0.1, -0.15, 0]}
-            position={[0.4, 0.11, -0.28]}
-            // rotation={[-0.1, -0.15, 0]}
-            // position={[0.4, 0.11, -0.28]}
-            name="side"
-            onClick={onClick}
-          >
-            <boxGeometry args={[0.2, 0.01, 0.8]} />
-            <meshStandardMaterial visible={false} />
-          </mesh>
-
-          {/* front */}
-          <Hotspot
-            position={[0.2, 0.21, 0.75]}
-            isVisible={!animating && showHotspot.front}
-            color="#46ACFA"
-          />
-
-          <mesh
-            rotation={[0, -0.15, 0]}
-            position={[0.3, 0.2, 0.6]}
-            // rotation={[0, -0.15, 0]}
-            // position={[0.3, 0.2, 0.6]}
-            name="front"
-            onClick={onClick}
-          >
-            <boxGeometry args={[0.2, 0.03, 0.5]} />
-            <meshStandardMaterial visible={false} />
-          </mesh>
+            <WavyPaths />
+          </Html>
         </group>
       </group>
-      <ContactShadows opacity={0.6} position={[0, -0.08, 0]} />
     </group>
   );
 }
