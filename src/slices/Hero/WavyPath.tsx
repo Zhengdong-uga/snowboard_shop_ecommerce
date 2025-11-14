@@ -36,7 +36,7 @@ export function WavyPaths() {
       ref={root}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      viewBox="0 0 1242 308"
+      viewBox="0 0 342 308"
       width={1242}
       height={308}
       className={clsx(

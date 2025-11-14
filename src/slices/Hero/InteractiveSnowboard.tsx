@@ -14,7 +14,7 @@ import gsap from "gsap";
 import { Hotspot } from "./Hotspot";
 import { WavyPaths } from "./WavyPath";
 
-const INITIAL_CAMERA_POSITION = [1.4, 3.5, -0.5] as const;
+const INITIAL_CAMERA_POSITION = [1.5, 1, 1.4] as const;
 
 type Props = {
   boardTextureURL: string;
@@ -34,7 +34,7 @@ export function InteractiveSnowboard({
       <Canvas
         className="min-h-[60rem] w-full"
         // 正常视角 [1.5, 1, 1.4]
-        camera={{ position: INITIAL_CAMERA_POSITION, fov: 45 }}
+        camera={{ position: INITIAL_CAMERA_POSITION, fov: 55 }}
         // camera={{ position: [1.4, 4, 1], fov: 35 }}俯视动画角度 1
         // camera={{ position: [1.4, 4, -0.5], fov: 40 }} 俯视动画角度
       >
@@ -444,7 +444,7 @@ function Scene({
       <Environment files={"/hdr/warehouse-256.hdr"} />
       <group ref={originRef}>
         <group ref={containerRef} position={[-0.25, 0, -0.635]}>
-          <group position={[0, -0.086, 0.635]}>
+          <group position={[0, 0.15, 0.635]}>
             <Snowboard1
               bindingLTextureURLs={[bindingLTextureURL]}
               bindingLTextureURL={bindingLTextureURL}
@@ -458,14 +458,14 @@ function Scene({
 
             {/* back */}
             <Hotspot
-              position={[0.26, 0.5, -1.2]}
+              position={[0.26, 0.12, -1.2]}
               isVisible={!animating && showHotspot.back}
               color="#B8FC39"
             />
 
             <mesh
               rotation={[0, -0.2, 0]}
-              position={[0.26, 0.5, -1.1]}
+              position={[0.26, 0.12, -1.1]}
               // rotation={[0, -0.2, 0]}
               // position={[0.55, 0.1, -1.25]}
               name="back"
@@ -477,14 +477,14 @@ function Scene({
 
             {/* side */}
             <Hotspot
-              position={[0.34, 0.46, -0.15]}
+              position={[0.34, 0.15, -0.15]}
               isVisible={!animating && showHotspot.side}
               color="#FF7A51"
             />
 
             <mesh
               rotation={[-0.1, -0.15, 0]}
-              position={[0.34, 0.46, -0.15]}
+              position={[0.34, 0.15, -0.15]}
               // rotation={[-0.1, -0.15, 0]}
               // position={[0.4, 0.11, -0.28]}
               name="side"
@@ -496,14 +496,14 @@ function Scene({
 
             {/* front */}
             <Hotspot
-              position={[0.08, 0.46, 0.8]}
+              position={[0.08, 0.22, 0.8]}
               isVisible={!animating && showHotspot.front}
               color="#46ACFA"
             />
 
             <mesh
               rotation={[0, -0.15, 0]}
-              position={[0.08, 0.46, 0.8]}
+              position={[0.08, 0.22, 0.8]}
               // rotation={[0, -0.15, 0]}
               // position={[0.3, 0.2, 0.6]}
               name="front"
@@ -528,6 +528,7 @@ function Scene({
           >
             <WavyPaths />
           </Html>
+          <OrbitControls />
         </group>
       </group>
     </group>
