@@ -388,7 +388,6 @@ function Scene({
     <group>
       {/* <pointLight position={[1, 1, 1]} intensity={5} />
       <pointLight position={[-2, 1, 1]} intensity={5} /> */}
-      <OrbitControls />
       <Environment files={"/hdr/warehouse-256.hdr"} />
       <group ref={containerRef} position={[-0.25, 0, -0.635]}>
         <group position={[0, -0.086, 0.635]}>
