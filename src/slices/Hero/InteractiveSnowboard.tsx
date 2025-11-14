@@ -2,14 +2,19 @@
 
 import * as THREE from "three";
 import { Snowboard1 } from "@/app/components/Snowboard1";
-import { ContactShadows, Environment, Html } from "@react-three/drei";
+import {
+  ContactShadows,
+  Environment,
+  Html,
+  OrbitControls,
+} from "@react-three/drei";
 import { Canvas, ThreeEvent, useThree } from "@react-three/fiber";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { Hotspot } from "./Hotspot";
 import { WavyPaths } from "./WavyPath";
 
-const INITIAL_CAMERA_POSITION = [1.5, 1, 1.4] as const;
+const INITIAL_CAMERA_POSITION = [1.4, 3.5, -0.5] as const;
 
 type Props = {
   boardTextureURL: string;
@@ -28,8 +33,8 @@ export function InteractiveSnowboard({
     <div className="absolute inset-0 z-10 flex items-center justify-center">
       <Canvas
         className="min-h-[60rem] w-full"
-        // 正常视角
-        camera={{ position: INITIAL_CAMERA_POSITION, fov: 55 }}
+        // 正常视角 [1.5, 1, 1.4]
+        camera={{ position: INITIAL_CAMERA_POSITION, fov: 45 }}
         // camera={{ position: [1.4, 4, 1], fov: 35 }}俯视动画角度 1
         // camera={{ position: [1.4, 4, -0.5], fov: 40 }} 俯视动画角度
       >
@@ -453,14 +458,14 @@ function Scene({
 
             {/* back */}
             <Hotspot
-              position={[0.55, 0.1, -1.25]}
+              position={[0.26, 0.5, -1.2]}
               isVisible={!animating && showHotspot.back}
               color="#B8FC39"
             />
 
             <mesh
               rotation={[0, -0.2, 0]}
-              position={[0.55, 0.1, -1.25]}
+              position={[0.26, 0.5, -1.1]}
               // rotation={[0, -0.2, 0]}
               // position={[0.55, 0.1, -1.25]}
               name="back"
@@ -472,14 +477,14 @@ function Scene({
 
             {/* side */}
             <Hotspot
-              position={[0.4, 0.13, -0.28]}
+              position={[0.34, 0.46, -0.15]}
               isVisible={!animating && showHotspot.side}
               color="#FF7A51"
             />
 
             <mesh
               rotation={[-0.1, -0.15, 0]}
-              position={[0.4, 0.11, -0.28]}
+              position={[0.34, 0.46, -0.15]}
               // rotation={[-0.1, -0.15, 0]}
               // position={[0.4, 0.11, -0.28]}
               name="side"
@@ -491,14 +496,14 @@ function Scene({
 
             {/* front */}
             <Hotspot
-              position={[0.2, 0.21, 0.75]}
+              position={[0.08, 0.46, 0.8]}
               isVisible={!animating && showHotspot.front}
               color="#46ACFA"
             />
 
             <mesh
               rotation={[0, -0.15, 0]}
-              position={[0.3, 0.2, 0.6]}
+              position={[0.08, 0.46, 0.8]}
               // rotation={[0, -0.15, 0]}
               // position={[0.3, 0.2, 0.6]}
               name="front"
