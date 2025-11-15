@@ -35,11 +35,7 @@ export default function RootLayout({
       <body
         className={`${bowlby.variable} ${deMono.variable} antialiased font-mono font-medium text-zinc-800`}
       >
-        <main>
-          <Header />
-          {children}
-          <Footer />
-        </main>
+        <main>{children}</main>
         <SVGFilters />
       </body>
     </html>

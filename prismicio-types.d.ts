@@ -141,6 +141,135 @@ export type BindingDocument<Lang extends string = string> =
   >;
 
 /**
+ * Item in *Board Customizer → Board*
+ */
+export interface BoardCustomizerDocumentDataBoardItem {
+  /**
+   * Texture field in *Board Customizer → Board*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.board[].texture
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  texture: prismic.ImageField<never>;
+
+  /**
+   * UID field in *Board Customizer → Board*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.board[].uid
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  uid: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Board Customizer → BindingL*
+ */
+export interface BoardCustomizerDocumentDataBindinglItem {
+  /**
+   * Texture field in *Board Customizer → BindingL*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.bindingl[].texture
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  texture: prismic.ImageField<never>;
+
+  /**
+   * UID field in *Board Customizer → BindingL*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.bindingl[].uid
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  uid: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Board Customizer → BindingR*
+ */
+export interface BoardCustomizerDocumentDataBindingrItem {
+  /**
+   * Texture field in *Board Customizer → BindingR*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.bindingr[].texture
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  texture: prismic.ImageField<never>;
+
+  /**
+   * UID field in *Board Customizer → BindingR*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.bindingr[].uid
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  uid: prismic.KeyTextField;
+}
+
+/**
+ * Content for Board Customizer documents
+ */
+interface BoardCustomizerDocumentData {
+  /**
+   * Board field in *Board Customizer*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.board[]
+   * - **Tab**: Board
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  board: prismic.GroupField<Simplify<BoardCustomizerDocumentDataBoardItem>> /**
+   * BindingL field in *Board Customizer*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.bindingl[]
+   * - **Tab**: BindingL
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */;
+  bindingl: prismic.GroupField<
+    Simplify<BoardCustomizerDocumentDataBindinglItem>
+  > /**
+   * BindingR field in *Board Customizer*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.bindingr[]
+   * - **Tab**: BindingR
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */;
+  bindingr: prismic.GroupField<
+    Simplify<BoardCustomizerDocumentDataBindingrItem>
+  >;
+}
+
+/**
+ * Board Customizer document from Prismic
+ *
+ * - **API ID**: `board_customizer`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BoardCustomizerDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<BoardCustomizerDocumentData>,
+    "board_customizer",
+    Lang
+  >;
+
+/**
  * Content for Boots documents
  */
 interface BootsDocumentData {
@@ -546,6 +675,7 @@ export type SnowboardDocument<Lang extends string = string> =
 
 export type AllDocumentTypes =
   | BindingDocument
+  | BoardCustomizerDocument
   | BootsDocument
   | GearsDocument
   | HomepageDocument
@@ -870,6 +1000,11 @@ declare module "@prismicio/client" {
     export type {
       BindingDocument,
       BindingDocumentData,
+      BoardCustomizerDocument,
+      BoardCustomizerDocumentData,
+      BoardCustomizerDocumentDataBoardItem,
+      BoardCustomizerDocumentDataBindinglItem,
+      BoardCustomizerDocumentDataBindingrItem,
       BootsDocument,
       BootsDocumentData,
       GearsDocument,

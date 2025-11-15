@@ -1,0 +1,87 @@
+{
+  "format": "custom",
+  "id": "board_customizer",
+  "label": "Board Customizer",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Board": {
+      "board": {
+        "type": "Group",
+        "config": {
+          "label": "Board",
+          "repeat": true,
+          "fields": {
+            "texture": {
+              "type": "Image",
+              "config": {
+                "label": "Texture",
+                "constraint": {},
+                "thumbnails": []
+              }
+            },
+            "uid": {
+              "type": "Text",
+              "config": {
+                "label": "UID",
+                "placeholder": ""
+              }
+            }
+          }
+        }
+      }
+    },
+    "BindingL": {
+      "bindingl": {
+        "type": "Group",
+        "config": {
+          "label": "BindingL",
+          "repeat": true,
+          "fields": {
+            "texture": {
+              "type": "Image",
+              "config": {
+                "label": "Texture",
+                "constraint": {},
+                "thumbnails": []
+              }
+            },
+            "uid": {
+              "type": "Text",
+              "config": {
+                "label": "UID",
+                "placeholder": ""
+              }
+            }
+          }
+        }
+      }
+    },
+    "BindingR": {
+      "bindingr": {
+        "type": "Group",
+        "config": {
+          "label": "BindingR",
+          "repeat": true,
+          "fields": {
+            "texture": {
+              "type": "Image",
+              "config": {
+                "label": "Texture",
+                "constraint": {},
+                "thumbnails": []
+              }
+            },
+            "uid": {
+              "type": "Text",
+              "config": {
+                "label": "UID",
+                "placeholder": ""
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
