@@ -122,54 +122,53 @@ export function Snowboard1({
           position: [0, 0, 0],
         },
         side: {
-          rotation: [0, 0, Math.PI / 2],
-          position: [0, 0.295, 0],
+          rotation: [0.05, -Math.PI / 2, -1.5],
+          position: [0, 0.275, 0],
         },
       }) as const,
     []
   );
 
   return (
-    <group dispose={null}>
-      {" "}
+    <group
+      dispose={null}
       rotation={positions[pose].rotation}
       position={positions[pose].position}
-      <group>
-        <group name="Scene">
-          <group name="Sbowboard_Variant_A" rotation={[0.11, -1.6, 0.12]}>
-            {/* {[0.11, -1.75, 0.19]}> version1 */}
-            {/* {[1, -2.9, 0.6]} version2*/}
-            <mesh
-              name="Binding_l"
-              castShadow
-              receiveShadow
-              geometry={nodes.Binding_l.geometry}
-              material={binding2Material}
-              position={[-0.5, 0.41, -0.23]}
-              scale={0.015}
-            />
-            <mesh
-              name="Binding_r"
-              castShadow
-              receiveShadow
-              geometry={nodes.Binding_r.geometry}
-              material={bindingMaterial}
-              position={[0.22, 0.41, -0.23]}
-              scale={0.015}
-            />
-            <mesh
-              name="board"
-              castShadow
-              receiveShadow
-              geometry={nodes.board.geometry}
-              material={boardMaterial}
-              position={[-0.1, 0.4, -0.2]}
-              // version 1 position={[-0.3, 0.1, -0.3]}
-              // version 2 position={[-0.3, 0.1, -0.05]}
-              scale={0.015}
-              // scale={0.012}
-            />
-          </group>
+    >
+      <group name="Scene">
+        <group name="Sbowboard_Variant_A" rotation={[0.11, -1.57, 0.12]}>
+          {/* {[0.11, -1.75, 0.19]}> version1 */}
+          {/* {[1, -2.9, 0.6]} version2*/}
+          <mesh
+            name="Binding_l"
+            castShadow
+            receiveShadow
+            geometry={nodes.Binding_l.geometry}
+            material={binding2Material}
+            position={[-0.5, 0.41, -0.23]}
+            scale={0.015}
+          />
+          <mesh
+            name="Binding_r"
+            castShadow
+            receiveShadow
+            geometry={nodes.Binding_r.geometry}
+            material={bindingMaterial}
+            position={[0.22, 0.41, -0.23]}
+            scale={0.015}
+          />
+          <mesh
+            name="board"
+            castShadow
+            receiveShadow
+            geometry={nodes.board.geometry}
+            material={boardMaterial}
+            position={[-0.1, 0.4, -0.2]}
+            // version 1 position={[-0.3, 0.1, -0.3]}
+            // version 2 position={[-0.3, 0.1, -0.05]}
+            scale={0.015}
+            // scale={0.012}
+          />
         </group>
       </group>
     </group>

@@ -1,6 +1,12 @@
 "use client";
 
-import { CameraControls, Environment, Preload } from "@react-three/drei";
+import {
+  CameraControls,
+  Environment,
+  Preload,
+  useTexture,
+} from "@react-three/drei";
+import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useRef } from "react";
 import { useCustomizerControls } from "./context";
@@ -10,6 +16,8 @@ import { Snowboard1 } from "../components/Snowboard1";
 const DEFAULT_BOARD_TEXTURE = "/snowboard/Board_Variant_A.png";
 const DEFAULT_BINDINGL_TEXTURE = "/snowboard/BindingTextures/MetalPlates.jpg";
 const DEFAULT_BINDINGR_TEXTURE = "/snowboard/BindingTextures/MetalPlates.jpg";
+
+const ENVIRONMENT_COLOR = "#3B3A3A";
 
 type Props = {
   boardTextureURLs: string[];
@@ -34,7 +42,7 @@ export default function Preview({
     asImageSrc(selectedBindingR?.texture) ?? DEFAULT_BINDINGR_TEXTURE;
 
   return (
-    <Canvas>
+    <Canvas shadows>
       <Suspense fallback={null}>
         <Environment
           files={"/hdr/warehouse-512.hdr"}
@@ -43,9 +51,10 @@ export default function Preview({
         <directionalLight
           castShadow
           lookAt={[0, 0, 0]}
-          position={[1, 1, 1]}
+          position={[1, 1, -1]}
           intensity={1.6}
         />
+        <StageFloor />
         <Snowboard1
           bindingLTextureURLs={bindinglTextureURLs}
           bindingLTextureURL={bindinglTextureURL}
@@ -63,5 +72,30 @@ export default function Preview({
       </Suspense>
       <Preload all />
     </Canvas>
+  );
+}
+
+function StageFloor() {
+  const normalMap = useTexture("/concrete-normal.avif");
+  normalMap.wrapS = THREE.RepeatWrapping;
+  normalMap.wrapT = THREE.RepeatWrapping;
+  normalMap.repeat.set(30, 30);
+  normalMap.anisotropy = 8;
+
+  const material = new THREE.MeshStandardMaterial({
+    roughness: 0.75,
+    color: ENVIRONMENT_COLOR,
+    normalMap: normalMap,
+  });
+  return (
+    <mesh
+      castShadow
+      receiveShadow
+      position={[0, -0.18, 0]}
+      rotation={[-Math.PI / 2, 0, 0]}
+      material={material}
+    >
+      <circleGeometry args={[20, 32]} />
+    </mesh>
   );
 }
