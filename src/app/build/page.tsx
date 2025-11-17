@@ -1,29 +1,54 @@
 import Link from "next/link";
 import React from "react";
-import { Logo } from "../components/Logo";
-import { TallLogo } from "@/slices/Hero/TallLogo";
 import { WideLogo } from "@/slices/Hero/WideLogo";
 import { Heading } from "../components/Heading";
 import { ButtonLink } from "../components/ButtonLink";
 
-type Props = {};
+import { CustomizerControlsProvider } from "./context";
+import { createClient } from "@/prismicio";
 
-export default async function page({}: Props) {
+type SearchParams = {
+  board?: string;
+  bindingl?: string;
+  bindingr?: string;
+};
+
+export default async function page() {
+  const client = createClient();
+  const customizerSettings = await client.getSingle("board_customizer");
+  const { board, bindingl, bindingr } = customizerSettings.data;
+
+  const defaultBoard = board[0];
+  // board.find((board) => board.uid === searchParams.board) ?? board[0];
+
+  const defaultBindingL = bindingl[0];
+  // bindingl.find((bindingl) => bindingl.uid === searchParams.bindingl) ??
+  // bindingl[0];
+  const defaultBindingR = bindingr[0];
+  // bindingr.find((bindingr) => bindingr.uid === searchParams.bindingr) ??
+  // bindingr[0];
+
   return (
     <div className="flex min-h-screen flex-col lg:flex-row">
-      <div className="relative aspect-square shrink-0 bg-[#3a414a] lg:aspect-auto lg:grow">
-        <Link href="/" className="absolute left-6 top-6">
-          <WideLogo className="h-16 text-white" />
-        </Link>
-      </div>
-      <div className="grow bg-texture bg-zinc-900 text-white ~p-4/6 lg:w-96 lg:shrink-0 lg:grow-0">
-        <Heading as="h1" size="sm" className="mb-6 mt-0">
-          Build your board
-        </Heading>
-        <ButtonLink href="" color="lime" icon="plus">
-          Add to cart
-        </ButtonLink>
-      </div>
+      <CustomizerControlsProvider
+        defaultBoard={defaultBoard}
+        defaultBindingL={defaultBindingL}
+        defaultBindingR={defaultBindingR}
+      >
+        <div className="relative aspect-square shrink-0 bg-[#3a414a] lg:aspect-auto lg:grow">
+          <Link href="/" className="absolute left-6 top-6">
+            <WideLogo className="h-16 text-white" />
+          </Link>
+        </div>
+        <div className="grow bg-texture bg-zinc-900 text-white ~p-4/6 lg:w-96 lg:shrink-0 lg:grow-0">
+          <Heading as="h1" size="sm" className="mb-6 mt-0">
+            Build your board
+          </Heading>
+          <ButtonLink href="" color="lime" icon="plus">
+            Add to cart
+          </ButtonLink>
+        </div>
+      </CustomizerControlsProvider>
     </div>
   );
 }
