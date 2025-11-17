@@ -10,8 +10,9 @@ type SnowboardProps = {
   bindingRTextureURL: string;
   boardTextureURLs: string[];
   boardTextureURL: string;
-  bindingColor: string;
+  bindingColor?: string;
   constantWheelSpin?: boolean;
+  pose?: "upright" | "side";
 };
 
 type GLTFResult = GLTF & {
@@ -34,6 +35,7 @@ export function Snowboard1({
   boardTextureURLs,
   boardTextureURL,
   bindingColor,
+  pose = "upright",
 }: SnowboardProps) {
   const { nodes } = useGLTF("/result.gltf") as GLTFResult;
   const frontDiffuse = useTexture("/snowboard/Board_Variant_A.png");
@@ -112,8 +114,26 @@ export function Snowboard1({
     [bindingRTexture, bindingColor]
   );
 
+  const positions = useMemo(
+    () =>
+      ({
+        upright: {
+          rotation: [0, 0, 0],
+          position: [0, 0, 0],
+        },
+        side: {
+          rotation: [0, 0, Math.PI / 2],
+          position: [0, 0.295, 0],
+        },
+      }) as const,
+    []
+  );
+
   return (
     <group dispose={null}>
+      {" "}
+      rotation={positions[pose].rotation}
+      position={positions[pose].position}
       <group>
         <group name="Scene">
           <group name="Sbowboard_Variant_A" rotation={[0.11, -1.6, 0.12]}>

@@ -6,6 +6,8 @@ import { ButtonLink } from "../components/ButtonLink";
 
 import { CustomizerControlsProvider } from "./context";
 import { createClient } from "@/prismicio";
+import Preview from "./Preview";
+import { asImageSrc } from "@prismicio/client";
 
 type SearchParams = {
   board?: string;
@@ -28,6 +30,18 @@ export default async function page() {
   // bindingr.find((bindingr) => bindingr.uid === searchParams.bindingr) ??
   // bindingr[0];
 
+  const boardTextureURLs = board
+    .map((texture) => asImageSrc(texture.texture))
+    .filter((url): url is string => Boolean(url));
+
+  const bindinglTextureURLs = bindingl
+    .map((texture) => asImageSrc(texture.texture))
+    .filter((url): url is string => Boolean(url));
+
+  const bindingrTextureURLs = bindingr
+    .map((texture) => asImageSrc(texture.texture))
+    .filter((url): url is string => Boolean(url));
+
   return (
     <div className="flex min-h-screen flex-col lg:flex-row">
       <CustomizerControlsProvider
@@ -36,6 +50,13 @@ export default async function page() {
         defaultBindingR={defaultBindingR}
       >
         <div className="relative aspect-square shrink-0 bg-[#3a414a] lg:aspect-auto lg:grow">
+          <div className="absolute inset-0">
+            <Preview
+              boardTextureURLs={boardTextureURLs}
+              bindinglTextureURLs={bindinglTextureURLs}
+              bindingrTextureURLs={bindingrTextureURLs}
+            />
+          </div>
           <Link href="/" className="absolute left-6 top-6">
             <WideLogo className="h-16 text-white" />
           </Link>
