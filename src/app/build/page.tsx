@@ -9,6 +9,7 @@ import { createClient } from "@/prismicio";
 import Preview from "./Preview";
 import { asImageSrc } from "@prismicio/client";
 import { Logo } from "../components/Logo";
+import Controls from "./Controls";
 
 type SearchParams = {
   board?: string;
@@ -66,6 +67,12 @@ export default async function page() {
           <Heading as="h1" size="sm" className="mb-6 mt-0">
             Build your board
           </Heading>
+          <Controls
+            board={board}
+            bindingl={bindingl}
+            bindingr={bindingr}
+            className="mb-6"
+          />
           <ButtonLink href="" color="lime" icon="plus">
             Add to cart
           </ButtonLink>
