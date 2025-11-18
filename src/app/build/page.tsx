@@ -8,6 +8,7 @@ import { CustomizerControlsProvider } from "./context";
 import { createClient } from "@/prismicio";
 import Preview from "./Preview";
 import { asImageSrc } from "@prismicio/client";
+import { Logo } from "../components/Logo";
 
 type SearchParams = {
   board?: string;
@@ -58,7 +59,7 @@ export default async function page() {
             />
           </div>
           <Link href="/" className="absolute left-6 top-6">
-            <WideLogo className="h-16 text-white" />
+            <Logo className="text-brand-white ~h-12/20" fill="white" />
           </Link>
         </div>
         <div className="grow bg-texture bg-zinc-900 text-white ~p-4/6 lg:w-96 lg:shrink-0 lg:grow-0">

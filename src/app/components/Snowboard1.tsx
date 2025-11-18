@@ -154,7 +154,7 @@ export function Snowboard1({
             receiveShadow
             geometry={nodes.Binding_r.geometry}
             material={bindingMaterial}
-            position={[0.22, 0.41, -0.23]}
+            position={[0.22, 0.42, -0.23]}
             scale={0.015}
           />
           <mesh
