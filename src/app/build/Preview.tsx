@@ -45,22 +45,22 @@ export default function Preview({
 
   useEffect(() => {
     setCameraControls(
-      new THREE.Vector3(0, 0.3, 0),
-      new THREE.Vector3(1.5, 0.8, 0)
+      new THREE.Vector3(0.3, 0.5, 1 / 2),
+      new THREE.Vector3(1.6, 0.8, -1.5)
     );
   }, [selectedBoard]);
 
   useEffect(() => {
     setCameraControls(
-      new THREE.Vector3(-0.12, 0.29, 0.57),
-      new THREE.Vector3(0.1, 0.25, 0.9)
+      new THREE.Vector3(-0.12, 0.19, 0.57),
+      new THREE.Vector3(0.7, 0.55, 1.2)
     );
   }, [selectedBindingL]);
 
   useEffect(() => {
     setCameraControls(
-      new THREE.Vector3(-0.08, 0.54, 0.64),
-      new THREE.Vector3(0.09, 1, 0.9)
+      new THREE.Vector3(-0.12, 0.19, 0.77),
+      new THREE.Vector3(1.59, 0.5, 0.6)
     );
   }, [selectedBindingR]);
 

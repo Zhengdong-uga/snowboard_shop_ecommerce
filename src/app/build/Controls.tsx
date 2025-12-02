@@ -3,13 +3,15 @@ import {
   ColorField,
   Content,
   ImageField,
+  isFilled,
   KeyTextField,
 } from "@prismicio/client";
 import clsx from "clsx";
-import React, { ComponentProps, ReactNode } from "react";
+import React, { ComponentProps, ReactNode, useEffect } from "react";
 import { Heading } from "../components/Heading";
 import { PrismicNextImage, PrismicNextImageProps } from "@prismicio/next";
 import { useCustomizerControls } from "./context";
+import { useRouter } from "next/navigation";
 
 type Props = Pick<
   Content.BoardCustomizerDocumentData,
@@ -24,6 +26,8 @@ export default function Controls({
   bindingr,
   className,
 }: Props) {
+  const router = useRouter();
+
   const {
     setBoard,
     setBindingL,
@@ -32,6 +36,17 @@ export default function Controls({
     selectedBindingL,
     selectedBindingR,
   } = useCustomizerControls();
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+
+    if (isFilled.keyText(selectedBoard?.uid))
+      url.searchParams.set("board", selectedBoard.uid);
+    if (isFilled.keyText(selectedBindingL?.uid))
+      url.searchParams.set("bindingl", selectedBindingL.uid);
+    if (isFilled.keyText(selectedBindingR?.uid))
+      url.searchParams.set("bindingr", selectedBindingR.uid);
+  });
 
   return (
     <div className={clsx("flex flex-col gap-6", className)}>

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React from "react";
-import { WideLogo } from "@/slices/Hero/WideLogo";
 import { Heading } from "../components/Heading";
 import { ButtonLink } from "../components/ButtonLink";
 
@@ -17,20 +16,24 @@ type SearchParams = {
   bindingr?: string;
 };
 
-export default async function page() {
+export default async function Page(props: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const searchParams = await props.searchParams;
+
   const client = createClient();
   const customizerSettings = await client.getSingle("board_customizer");
   const { board, bindingl, bindingr } = customizerSettings.data;
 
-  const defaultBoard = board[0];
-  // board.find((board) => board.uid === searchParams.board) ?? board[0];
+  const defaultBoard =
+    board.find((board) => board.uid === searchParams.board) ?? board[0];
 
-  const defaultBindingL = bindingl[0];
-  // bindingl.find((bindingl) => bindingl.uid === searchParams.bindingl) ??
-  // bindingl[0];
-  const defaultBindingR = bindingr[0];
-  // bindingr.find((bindingr) => bindingr.uid === searchParams.bindingr) ??
-  // bindingr[0];
+  const defaultBindingL =
+    bindingl.find((bindingl) => bindingl.uid === searchParams.bindingl) ??
+    bindingl[0];
+  const defaultBindingR =
+    bindingr.find((bindingr) => bindingr.uid === searchParams.bindingr) ??
+    bindingr[0];
 
   const boardTextureURLs = board
     .map((texture) => asImageSrc(texture.texture))
